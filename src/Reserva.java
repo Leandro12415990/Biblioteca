@@ -18,4 +18,48 @@ public class Reserva {
     public int getNumero() {
         return numero;
     }
+
+    public void setNumero(int numero) {
+        this.numero = numero;
+    }
+
+    public String getUtente() {
+        return utente;
+    }
+
+    public void setUtente(String utente) {
+        this.utente = utente;
+    }
+
+    public String getLivro() {
+        return livro;
+    }
+
+    public void setLivro(String livro) {
+        this.livro = livro;
+    }
+
+    public String getDataRegisto() {
+        return dataRegisto;
+    }
+
+    public void setDataRegisto(String dataRegisto) {
+        this.dataRegisto = dataRegisto;
+    }
+
+    public String getDataInicio() {
+        return dataInicio;
+    }
+
+    public void setDataInicio(String dataInicio) {
+        this.dataInicio = dataInicio;
+    }
+
+    public String getDataFim() {
+        return DataFim;
+    }
+
+    public void setDataFim(String dataFim) {
+        DataFim = dataFim;
+    }
 }

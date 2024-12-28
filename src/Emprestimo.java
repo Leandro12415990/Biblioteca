@@ -18,4 +18,48 @@ public class Emprestimo {
     public int getNumero() {
         return numero;
     }
+
+    public void setNumero(int numero) {
+        this.numero = numero;
+    }
+
+    public String getUtente() {
+        return utente;
+    }
+
+    public void setUtente(String utente) {
+        this.utente = utente;
+    }
+
+    public String getLivro() {
+        return livro;
+    }
+
+    public void setLivro(String livro) {
+        this.livro = livro;
+    }
+
+    public String getDataInicio() {
+        return dataInicio;
+    }
+
+    public void setDataInicio(String dataInicio) {
+        this.dataInicio = dataInicio;
+    }
+
+    public String getDataPrevistaDevolucao() {
+        return dataPrevistaDevolucao;
+    }
+
+    public void setDataPrevistaDevolucao(String dataPrevistaDevolucao) {
+        this.dataPrevistaDevolucao = dataPrevistaDevolucao;
+    }
+
+    public String getDataEfetivaDevolucao() {
+        return dataEfetivaDevolucao;
+    }
+
+    public void setDataEfetivaDevolucao(String dataEfetivaDevolucao) {
+        this.dataEfetivaDevolucao = dataEfetivaDevolucao;
+    }
 }
