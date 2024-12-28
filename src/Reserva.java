@@ -1,18 +1,23 @@
+import java.util.Scanner;
+import java.time.LocalDate;
+
 public class Reserva {
+    private int proximoNumero = 1;
     private int numero;
     private String utente;
     private String livro;
     private String dataRegisto;
     private String dataInicio;
-    private String DataFim;
+    private String dataFim;
 
     public Reserva(int numero, String utente, String livro, String dataRegisto, String dataInicio, String dataFim) {
-        this.numero = numero;
+        this.numero = proximoNumero;
         this.utente = utente;
         this.livro = livro;
         this.dataRegisto = dataRegisto;
         this.dataInicio = dataInicio;
-        this.DataFim = dataFim;
+        this.dataFim = dataFim;
+        this.proximoNumero++;
     }
 
     public int getNumero() {
@@ -56,10 +61,37 @@ public class Reserva {
     }
 
     public String getDataFim() {
-        return DataFim;
+        return dataFim;
     }
 
     public void setDataFim(String dataFim) {
-        DataFim = dataFim;
+        dataFim = dataFim;
+    }
+
+    public void criarReserva() {
+        Scanner ler = new Scanner(System.in);
+        System.out.println("A criar Reserva!");
+
+        System.out.println("Nome do utente: ");
+        String utente = ler.nextLine();
+
+        LocalDate dataRegisto = LocalDate.now();
+
+        System.out.print("Data de ínicio da reserva (AAAA-MM-DD): ");
+        String dataInicio = ler.nextLine();
+
+        System.out.print("Data final da reserva (AAAA-MM-DD): ");
+        String dataEfetivaDevolucao = ler.nextLine();
+
+        this.numero = proximoNumero;
+        this.utente = utente;
+        this.livro = livro;
+        this.dataRegisto = LocalDate.now().toString();
+        this.dataInicio = dataInicio;
+        this.dataFim = dataFim;
+
+        System.out.println("Reserva Criada!");
+
     }
 }
+
