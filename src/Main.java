@@ -17,4 +17,5 @@ public class Main {
         System.out.println("14. Ler de um ficheiro toda a informação");
         System.out.print("Escolha uma opção: ");
     }
+
 }
