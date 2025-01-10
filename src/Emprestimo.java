@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Emprestimo {
-    private static ArrayList<Emprestimo> listaEmprestimos = new ArrayList<>(100);
+    public static ArrayList<Emprestimo> listaEmprestimos = new ArrayList<>(100);
     private static int proximoNumero = 1;
     private int numero;
     private String utente;
@@ -67,6 +67,7 @@ public class Emprestimo {
     }
 
     public static void criarEmprestimo() {
+
         Scanner ler = new Scanner(System.in);
         System.out.println("\n--- Criar Empréstimo ---");
 
@@ -100,6 +101,30 @@ public class Emprestimo {
             }
         }
 
+        for (Emprestimo emprestimo : listaEmprestimos) {
+            if (emprestimo.getLivro().equals(livro)) {
+                LocalDate emprestimoInicio = LocalDate.parse(emprestimo.getDataInicio());
+                LocalDate emprestimoFim = LocalDate.parse(emprestimo.getDataPrevistaDevolucao());
+
+                if (!(dataPrevistaDevolucao.isBefore(emprestimoInicio) || dataInicio.isAfter(emprestimoFim))) {
+                    System.out.println("Não é possível criar o empréstimo. O livro já está emprestado no intervalo de datas fornecido.");
+                    return;
+                }
+            }
+        }
+
+        for (Reserva reserva : Reserva.listaReservas) {
+            if (reserva.getLivro().equals(livro)) {
+                LocalDate reservaInicio = LocalDate.parse(reserva.getDataInicio());
+                LocalDate reservaFim = LocalDate.parse(reserva.getDataFim());
+
+                if (!(dataPrevistaDevolucao.isBefore(reservaInicio) || dataInicio.isAfter(reservaFim))) {
+                    System.out.println("Não é possível criar o empréstimo. O livro já está reservado no intervalo de datas fornecido.");
+                    return;
+                }
+            }
+        }
+
         LocalDate dataEfetivaDevolucao = null;
         System.out.print("Data efetiva de devolução (AAAA-MM-DD) [Deixe vazio se ainda não foi devolvido]: ");
         String dataEfetiva = ler.nextLine();
@@ -124,5 +149,7 @@ public class Emprestimo {
         System.out.println("Data efetiva de devolução: " + emprestimo.getDataEfetivaDevolucao());
 
         }
+
+
     }
 

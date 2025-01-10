@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Reserva {
+    public static ArrayList <Reserva> listaReservas = new ArrayList<>(100);
     private static int proximoNumero = 1;
-
     private int numero;
     private String utente;
     private String livro;
@@ -83,6 +83,8 @@ public class Reserva {
             }
         }
 
+
+
         LocalDate dataFim = null;
         while (dataFim == null) {
             try {
@@ -96,7 +98,31 @@ public class Reserva {
                 System.out.println("Data inválida. Tente novamente.");
             }
         }
-        ArrayList <Reserva> listaReservas = new ArrayList<>(100);
+
+        for (Reserva reserva : listaReservas) {
+            if (reserva.getLivro().equals(livro)) {
+                LocalDate reservaInicio = LocalDate.parse(reserva.getDataInicio());
+                LocalDate reservaFim = LocalDate.parse(reserva.getDataFim());
+
+                if (!(dataFim.isBefore(reservaInicio) || dataInicio.isAfter(reservaFim))) {
+                    System.out.println("Não é possível criar a reserva. O livro já está reservado no intervalo de datas fornecido.");
+                    return;
+                }
+            }
+        }
+
+        for (Emprestimo emprestimo : Emprestimo.listaEmprestimos) {
+            if (emprestimo.getLivro().equals(livro)) {
+                LocalDate emprestimoInicio = LocalDate.parse(emprestimo.getDataInicio());
+                LocalDate emprestimoFim = LocalDate.parse(emprestimo.getDataPrevistaDevolucao());
+
+                if (!(dataFim.isBefore(emprestimoInicio) || dataInicio.isAfter(emprestimoFim))) {
+                    System.out.println("Não é possível criar a reserva. O livro já está emprestado no intervalo de datas fornecido.");
+                    return;
+                }
+            }
+        }
+
             Reserva reserva = new Reserva(utente, livro, dataInicio.toString(), dataFim.toString());
                 listaReservas.add(new Reserva(utente, livro, dataInicio.toString(), dataFim.toString()));
 
