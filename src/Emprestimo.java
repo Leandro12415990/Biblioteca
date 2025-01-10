@@ -1,8 +1,10 @@
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Emprestimo {
+    private static ArrayList<Emprestimo> listaEmprestimos = new ArrayList<>(100);
     private static int proximoNumero = 1;
     private int numero;
     private String utente;
@@ -64,7 +66,7 @@ public class Emprestimo {
         this.dataEfetivaDevolucao = dataEfetivaDevolucao;
     }
 
-    public static Emprestimo criarEmprestimo() {
+    public static void criarEmprestimo() {
         Scanner ler = new Scanner(System.in);
         System.out.println("\n--- Criar Empréstimo ---");
 
@@ -109,13 +111,9 @@ public class Emprestimo {
             }
         }
 
-        Emprestimo emprestimo = new Emprestimo(
-                utente,
-                livro,
-                dataInicio.toString(),
-                dataPrevistaDevolucao.toString(),
-                dataEfetivaDevolucao != null ? dataEfetivaDevolucao.toString() : "Pendente"
-        );
+
+        Emprestimo emprestimo = new Emprestimo(utente, livro, dataInicio.toString(), dataPrevistaDevolucao.toString(), dataEfetivaDevolucao != null ? dataEfetivaDevolucao.toString() : "Pendente");
+            listaEmprestimos.add(new Emprestimo(utente, livro, dataInicio.toString(), dataPrevistaDevolucao.toString(), dataEfetivaDevolucao != null ? dataEfetivaDevolucao.toString() : "Pendente"));
 
         System.out.println("\n Empréstimo Criado com Sucesso!");
         System.out.println("Número do empréstimo: " + emprestimo.getNumero());
@@ -125,6 +123,6 @@ public class Emprestimo {
         System.out.println("Data prevista de devolução: " + emprestimo.getDataPrevistaDevolucao());
         System.out.println("Data efetiva de devolução: " + emprestimo.getDataEfetivaDevolucao());
 
-        return emprestimo;
+        }
     }
 }

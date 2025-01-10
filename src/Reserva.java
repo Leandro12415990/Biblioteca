@@ -1,5 +1,6 @@
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Reserva {
@@ -62,7 +63,7 @@ public class Reserva {
         this.dataFim = dataFim;
     }
 
-    public static Reserva criarReserva() {
+    public static void criarReserva() {
         Scanner ler = new Scanner(System.in);
         System.out.println("\n--- Criar Reserva ---");
 
@@ -95,13 +96,9 @@ public class Reserva {
                 System.out.println("Data inválida. Tente novamente.");
             }
         }
-
-        Reserva reserva = new Reserva(
-                utente,
-                livro,
-                dataInicio.toString(),
-                dataFim.toString()
-        );
+        ArrayList <Reserva> listaReservas = new ArrayList<>(100);
+            Reserva reserva = new Reserva(utente, livro, dataInicio.toString(), dataFim.toString());
+                listaReservas.add(new Reserva(utente, livro, dataInicio.toString(), dataFim.toString()));
 
         System.out.println("\n Reserva Criada com Sucesso!");
         System.out.println("Número da reserva: " + reserva.getNumero());
@@ -111,6 +108,5 @@ public class Reserva {
         System.out.println("Data de início: " + reserva.getDataInicio());
         System.out.println("Data de fim: " + reserva.getDataFim());
 
-        return reserva;
     }
 }
