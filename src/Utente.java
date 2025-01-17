@@ -1,10 +1,10 @@
 public class Utente {
-    private String nif;
-    private String nome;
-    private String genero;
-    private int contacto;
+    public String nif;
+    public String nome;
+    public String genero;
+    public String contacto;
 
-    public Utente(String nif, String nome, String genero, int contacto) {
+    public Utente(String nif, String nome, String genero, String contacto) {
         this.nif = nif;
         this.nome = nome;
         this.genero = genero;
@@ -35,11 +35,11 @@ public class Utente {
         this.genero = genero;
     }
 
-    public int getContacto() {
+    public String getContacto() {
         return contacto;
     }
 
-    public void setContacto(int contacto) {
+    public void setContacto(String contacto) {
         this.contacto = contacto;
     }
 }
