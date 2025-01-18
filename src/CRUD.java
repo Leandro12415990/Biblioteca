@@ -514,4 +514,14 @@ public class CRUD {
             }
         }
     }
+
+    public static Livro verificarLivroExistente(String titulo) {
+        for (Livro livro : livros) {
+            if (livro.getTitulo().equals(titulo)) {
+                return livro;
+            }
+        }
+        return null;
+    }
+
 }
