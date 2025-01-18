@@ -172,6 +172,35 @@ public class Emprestimo {
                 System.out.println("Data inválida. Certifique-se de usar o formato AAAA-MM-DD.");
             }
         }
+        LocalDate dataEfetivaDevolucao = null;
+        System.out.print("Deseja inserir a data efetiva de devolução agora? (1 - Sim, 0 - Não): ");
+        int inserirDataEfetiva = ler.nextInt();
+        ler.nextLine();
+
+        if (inserirDataEfetiva == 1) {
+            while (dataEfetivaDevolucao == null) {
+                try {
+                    System.out.print("Data efetiva de devolução (AAAA-MM-DD): ");
+                    String input = ler.nextLine();
+
+                    if (input.trim().isEmpty()) {
+                        System.out.println("A data efetiva de devolução não pode ser vazia se escolhida para inserção.");
+                        continue;
+                    }
+
+                    dataEfetivaDevolucao = LocalDate.parse(input);
+
+                    if (dataEfetivaDevolucao.isBefore(dataInicio)) {
+                        System.out.println("A data efetiva de devolução não pode ser anterior à data de início.");
+                        dataEfetivaDevolucao = null;
+                    }
+                } catch (DateTimeParseException e) {
+                    System.out.println("Data inválida. Certifique-se de usar o formato AAAA-MM-DD.");
+                }
+            }
+        } else {
+            System.out.println("Data efetiva de devolução será marcada como Pendente.");
+        }
 
         for (String livro : livrosParaEmprestimo) {
             for (Emprestimo emprestimo : listaEmprestimos) {
@@ -196,7 +225,7 @@ public class Emprestimo {
         System.out.println("Livros no empréstimo: " + emprestimo.getLivros());
         System.out.println("Data de início: " + emprestimo.getDataInicio());
         System.out.println("Data prevista de devolução: " + emprestimo.getDataPrevistaDevolucao());
-        System.out.println("Data efetiva de devolução: Pendente");
+        System.out.println("Data efetiva de devolução: " + (emprestimo.getDataEfetivaDevolucao() != null ? emprestimo.getDataEfetivaDevolucao() : "Pendente"));
     }
 
     public static void consultarAlterarEmprestimo(){
