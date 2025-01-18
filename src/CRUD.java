@@ -521,4 +521,12 @@ public class CRUD {
         return null;
     }
 
+    public static Utente encontrarUtentePorNif(String nif) {
+        for (Utente utente : utentes) {
+            if (utente.getNif().equals(nif)) {
+                return utente;
+            }
+        }
+        return null;
+    }
 }

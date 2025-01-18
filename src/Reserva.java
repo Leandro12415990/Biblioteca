@@ -8,19 +8,21 @@ public class Reserva {
     private static int proximoNumero = 1;
     private int numero;
     private String utente;
-    private String livro;
+    private ArrayList<String> livros;
     private LocalDate dataRegisto;
     private LocalDate dataInicio;
     private LocalDate dataFim;
 
-    public Reserva(String utente, String livro, LocalDate dataInicio, LocalDate dataFim) {
+    public Reserva(String utente, ArrayList<String> livros, LocalDate dataInicio, LocalDate dataFim) {
         this.numero = proximoNumero++;
         this.utente = utente;
-        this.livro = livro;
+        this.livros = livros != null ? livros : new ArrayList<>();
         this.dataRegisto = LocalDate.now();
         this.dataInicio = dataInicio;
         this.dataFim = dataFim;
     }
+
+    // Getters e Setters
 
     public int getNumero() {
         return numero;
@@ -34,12 +36,12 @@ public class Reserva {
         this.utente = utente;
     }
 
-    public String getLivro() {
-        return livro;
+    public ArrayList<String> getLivros() {
+        return livros;
     }
 
-    public void setLivro(String livro) {
-        this.livro = livro;
+    public void setLivros(ArrayList<String> livros) {
+        this.livros = livros;
     }
 
     public LocalDate getDataRegisto() {
@@ -66,20 +68,18 @@ public class Reserva {
         Scanner ler = new Scanner(System.in);
         System.out.println("\n--- Criar Reserva ---");
 
-        System.out.print("Nome do utente: ");
-        String utente = ler.nextLine();
-
-        System.out.print("Título do livro: ");
-        String livro = ler.nextLine();
+        System.out.print("Insira o NIF do cliente: ");
+        String utente;
 
         while (true) {
+            utente = ler.nextLine();
 
-            if (CRUD.verificarLivroExistente(livro) != null) {
-                System.out.println("Livro encontrado no sistema.");
+            if (CRUD.encontrarUtentePorNif(utente) != null) {
+                System.out.println("Utente encontrado no sistema.");
                 break;
             } else {
-                System.out.println("Livro não encontrado no sistema.");
-                System.out.println("1. Tentar novamente\n0. Cancelar");
+                System.out.println("O utente não foi encontrado!");
+                System.out.println("1. Tentar novamente\n0. Cancelar operação");
                 System.out.print("Escolha uma opção: ");
 
                 while (!ler.hasNextInt()) {
@@ -93,6 +93,38 @@ public class Reserva {
                 if (opcao == 0) {
                     System.out.println("Operação cancelada.");
                     return;
+                }
+
+                System.out.print("Insira o NIF do cliente: ");
+            }
+        }
+
+        System.out.print("Quantos livros deseja incluir na reserva? ");
+        int quantidadeLivros = ler.nextInt();
+        ler.nextLine();
+
+        ArrayList<String> livrosParaReserva = new ArrayList<>();
+        for (int i = 0; i < quantidadeLivros; i++) {
+            while (true) {
+                System.out.print("Título do livro " + (i + 1) + ": ");
+                String livro = ler.nextLine();
+
+                if (CRUD.verificarLivroExistente(livro) != null) {
+                    livrosParaReserva.add(livro);
+                    System.out.println("Livro adicionado à reserva.");
+                    break;
+                } else {
+                    System.out.println("Livro não encontrado no sistema.");
+                    System.out.println("1. Tentar novamente\n0. Cancelar operação");
+                    System.out.print("Escolha uma opção: ");
+
+                    int opcao = ler.nextInt();
+                    ler.nextLine();
+
+                    if (opcao == 0) {
+                        System.out.println("Operação cancelada.");
+                        return;
+                    }
                 }
             }
         }
@@ -121,64 +153,37 @@ public class Reserva {
             }
         }
 
-        for (Reserva reserva : listaReservas) {
-            if (reserva.getLivro().equals(livro)) {
-                LocalDate reservaInicio = reserva.getDataInicio();
-                LocalDate reservaFim = reserva.getDataFim();
+        // Verificação de disponibilidade
+        for (String livro : livrosParaReserva) {
+            for (Reserva reserva : listaReservas) {
+                if (reserva.getLivros().contains(livro)) {
+                    if (!(dataFim.isBefore(reserva.getDataInicio()) || dataInicio.isAfter(reserva.getDataFim()))) {
+                        System.out.println("Não é possível criar a reserva. O livro '" + livro + "' já está reservado no intervalo de datas fornecido.");
+                        return;
+                    }
+                }
+            }
 
-                if (!(dataFim.isBefore(reservaInicio) || dataInicio.isAfter(reservaFim))) {
-                    System.out.println("Não é possível criar a reserva. O livro já está reservado no intervalo de datas fornecido.");
-                    return;
+            for (Emprestimo emprestimo : Emprestimo.listaEmprestimos) {
+                if (emprestimo.getLivros().contains(livro)) {
+                    if (!(dataFim.isBefore(emprestimo.getDataInicio()) || dataInicio.isAfter(emprestimo.getDataPrevistaDevolucao()))) {
+                        System.out.println("Não é possível criar a reserva. O livro '" + livro + "' já está emprestado no intervalo de datas fornecido.");
+                        return;
+                    }
                 }
             }
         }
 
-        for (Emprestimo emprestimo : Emprestimo.listaEmprestimos) {
-            if (emprestimo.getLivro().equals(livro)) {
-                LocalDate emprestimoInicio = emprestimo.getDataInicio();
-                LocalDate emprestimoFim = emprestimo.getDataPrevistaDevolucao();
-
-                if (!(dataFim.isBefore(emprestimoInicio) || dataInicio.isAfter(emprestimoFim))) {
-                    System.out.println("Não é possível criar a reserva. O livro já está emprestado no intervalo de datas fornecido.");
-                    return;
-                }
-            }
-        }
-
-        Reserva reserva = new Reserva(utente, livro, dataInicio, dataFim);
+        // Criar a reserva
+        Reserva reserva = new Reserva(utente, livrosParaReserva, dataInicio, dataFim);
         listaReservas.add(reserva);
 
         System.out.println("\n Reserva Criada com Sucesso!");
         System.out.println("Número da reserva: " + reserva.getNumero());
         System.out.println("Nome do utente: " + reserva.getUtente());
-        System.out.println("Título do livro: " + reserva.getLivro());
+        System.out.println("Livros reservados: " + reserva.getLivros());
         System.out.println("Data de registo: " + reserva.getDataRegisto());
         System.out.println("Data de início: " + reserva.getDataInicio());
         System.out.println("Data de fim: " + reserva.getDataFim());
     }
-
-
-public static void removerReserva() {
-        Scanner ler = new Scanner(System.in);
-        System.out.println("\n--- Remover Reserva ---");
-
-        System.out.print("Informe o número da reserva que deseja remover: ");
-        int numeroReserva = ler.nextInt();
-
-        Reserva reservaParaRemover = null;
-        for (Reserva reserva : listaReservas) {
-            if (reserva.getNumero() == numeroReserva) {
-                reservaParaRemover = reserva;
-                break;
-            }
-        }
-
-        if (reservaParaRemover != null) {
-            listaReservas.remove(reservaParaRemover);
-            System.out.println("Reserva removida com sucesso!");
-        } else {
-            System.out.println("Reserva não encontrada. Verifique o número e tente novamente.");
-        }
-    }
-
 }
