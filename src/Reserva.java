@@ -186,4 +186,78 @@ public class Reserva {
         System.out.println("Data de início: " + reserva.getDataInicio());
         System.out.println("Data de fim: " + reserva.getDataFim());
     }
+
+    public static void consultarAlterarReserva() {
+        Scanner ler = new Scanner(System.in);
+
+        System.out.print("Indique o número da reserva: ");
+        int numeroReserva = ler.nextInt();
+        ler.nextLine();
+
+        Reserva reserva = null;
+        for (Reserva r : Reserva.listaReservas) {
+            if (r.getNumero() == numeroReserva) {
+                reserva = r;
+                break;
+            }
+        }
+
+        if (reserva == null) {
+            System.out.println("Reserva não encontrada!");
+            return;
+        }
+
+        while (true) {
+            System.out.println("\nLivros associados à reserva:");
+            for (String livro : reserva.getLivros()) {
+                System.out.println("- " + livro);
+            }
+
+            System.out.println("\nO que deseja fazer?");
+            System.out.println("1. Adicionar Livro");
+            System.out.println("2. Remover Livro");
+            System.out.println("0. Sair");
+            System.out.print("Escolha uma opção: ");
+            int opcao = ler.nextInt();
+            ler.nextLine();
+
+            switch (opcao) {
+                case 1: // Adicionar Livro
+                    System.out.print("Informe o título do livro a ser adicionado: ");
+                    String novoLivro = ler.nextLine();
+
+                    if (CRUD.verificarLivroExistente(novoLivro) != null) {
+                        if (!reserva.getLivros().contains(novoLivro)) {
+                            reserva.getLivros().add(novoLivro);
+                            System.out.println("Livro adicionado à reserva.");
+                        } else {
+                            System.out.println("O livro já está associado a esta reserva.");
+                        }
+                    } else {
+                        System.out.println("Livro não encontrado no sistema.");
+                    }
+                    break;
+
+                case 2: // Remover Livro
+                    System.out.print("Informe o título do livro a ser removido: ");
+                    String livroRemover = ler.nextLine();
+
+                    if (reserva.getLivros().remove(livroRemover)) {
+                        System.out.println("Livro removido da reserva.");
+                    } else {
+                        System.out.println("O livro não está associado a esta reserva.");
+                    }
+                    break;
+
+                case 0: // Sair
+                    System.out.println("A sair do menu de alteração de reservas...");
+                    return;
+
+                default:
+                    System.out.println("Opção inválida. Tente novamente.");
+            }
+        }
+    }
+
+
 }

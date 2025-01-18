@@ -186,4 +186,78 @@ public class Emprestimo {
         System.out.println("Data prevista de devolução: " + emprestimo.getDataPrevistaDevolucao());
         System.out.println("Data efetiva de devolução: Pendente");
     }
+
+    public static void consultarAlterarEmprestimo(){
+        Scanner ler = new Scanner(System.in);
+
+        System.out.print("Indique o número do empréstimo: ");
+        int numeroEmprestimo = ler.nextInt();
+        ler.nextLine();
+
+        Emprestimo emprestimo = null;
+        for (Emprestimo e : Emprestimo.listaEmprestimos) {
+            if (e.getNumero() == numeroEmprestimo) {
+                emprestimo = e;
+                break;
+            }
+        }
+
+        if (emprestimo == null) {
+            System.out.println("Empréstimo não encontrado!");
+            return;
+        }
+
+        while (true) {
+
+            System.out.println("Livros associados ao empréstimo:");
+            for (String livro : emprestimo.getLivros()) {
+                System.out.println("- " + livro);
+            }
+
+            System.out.println("\nO que deseja fazer?");
+            System.out.println("1. Adicionar Livro");
+            System.out.println("2. Remover Livro");
+            System.out.println("0. Sair");
+            System.out.print("Escolha uma opção: ");
+            int opcao = ler.nextInt();
+            ler.nextLine();
+
+            switch (opcao) {
+                case 1:
+
+                    System.out.print("Informe o título do livro a ser adicionado: ");
+                    String novoLivro = ler.nextLine();
+                    if (CRUD.verificarLivroExistente(novoLivro) != null) {
+                        if (!emprestimo.getLivros().contains(novoLivro)) {
+                            emprestimo.getLivros().add(novoLivro);
+                            System.out.println("Livro adicionado ao empréstimo.");
+                        } else {
+                            System.out.println("O livro já está associado a este empréstimo.");
+                        }
+                    } else {
+                        System.out.println("Livro não encontrado no sistema.");
+                    }
+                    break;
+
+                case 2:
+
+                    System.out.print("Informe o título do livro a ser removido: ");
+                    String livroRemover = ler.nextLine();
+                    if (emprestimo.getLivros().remove(livroRemover)) {
+                        System.out.println("Livro removido do empréstimo.");
+                    } else {
+                        System.out.println("O livro não está associado a este empréstimo.");
+                    }
+                    break;
+
+                case 0:
+
+                    System.out.println("A sair do menu de alteração de empréstimos...");
+                    return;
+
+                default:
+                    System.out.println("Opção inválida. Tente novamente.");
+            }
+        }
+    }
 }
