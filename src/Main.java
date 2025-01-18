@@ -64,10 +64,10 @@ public class Main {
                         Reserva.consultarAlterarReserva();
                     break;
                 case 8:
-
+                    CRUD.apresentarListaDeUtentes();
                     break;
                 case 9:
-
+                    Emprestimo.totalEmprestimosPorIntervalo();
                     break;
                 case 10:
 
