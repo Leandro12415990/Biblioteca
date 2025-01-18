@@ -3,19 +3,14 @@ import java.util.Scanner;
 
 public class CRUD {
 
-    private static ArrayList<Livro> livros = new ArrayList<Livro>();
-    private static ArrayList<Revista> revistas = new ArrayList<Revista>();
-    private static ArrayList<Jornal> jornais = new ArrayList<Jornal>();
-    private static ArrayList<Utente> utentes = new ArrayList<Utente>();
+    public static ArrayList<Livro> livros = new ArrayList<Livro>();
+    public static ArrayList<Revista> revistas = new ArrayList<Revista>();
+    public static ArrayList<Jornal> jornais = new ArrayList<Jornal>();
+    public static ArrayList<Utente> utentes = new ArrayList<Utente>();
 
-    public static void main(String[] args) {
+    public static void main() {
         Scanner ler = new Scanner(System.in);
-        System.out.println("Escolha a opção que deseja ir: ");
-        System.out.println("1. Livro ");
-        System.out.println("2. Revista ");
-        System.out.println("3. Jornal ");
-        System.out.println("4. Utente ");
-        int opcao = ler.nextInt();
+        int opcao = 0;
         do {
             System.out.println("Escolha a opção que deseja ir: ");
             System.out.println("1. Livro ");
@@ -23,7 +18,8 @@ public class CRUD {
             System.out.println("3. Jornal ");
             System.out.println("4. Utente ");
             opcao = ler.nextInt();
-        } while (opcao != 1 || opcao != 2 || opcao != 3 || opcao != 4);
+            ler.nextLine();
+        } while (opcao != 1 && opcao != 2 && opcao != 3 && opcao != 4);
 
         String titulo = "";
         String editora = "";
@@ -53,6 +49,7 @@ public class CRUD {
             autor = ler.nextLine();
             Livro livro = new Livro(titulo, editora, categoria, anoEdicao, isbn, autor);
             livros.add(new Livro(titulo, editora, categoria, anoEdicao, isbn, autor));
+
 
         } else if (opcao == 2) {
             System.out.println("Indique o titulo da revista:");
@@ -96,14 +93,9 @@ public class CRUD {
         }
     }
 
-    public void ler() {
+    public static void ler() {
         Scanner ler = new Scanner(System.in);
-        System.out.println("Escolha a opção que deseja pesquisar: ");
-        System.out.println("1. Livro ");
-        System.out.println("2. Revista ");
-        System.out.println("3. Jornal ");
-        System.out.println("4. Utente ");
-        int opcao = ler.nextInt();
+        int opcao = 0;
         do {
             System.out.println("Escolha a opção que deseja pesquisar: ");
             System.out.println("1. Livro ");
@@ -111,9 +103,11 @@ public class CRUD {
             System.out.println("3. Jornal ");
             System.out.println("4. Utente ");
             opcao = ler.nextInt();
-        } while (opcao != 1 || opcao != 2 || opcao != 3 || opcao != 4);
+            ler.nextLine();
+        } while (opcao != 1 && opcao != 2 && opcao != 3 && opcao != 4);
 
         if (opcao == 1) {
+            System.out.println("Insira o ISBN: ");
             String isbn = ler.nextLine();
             boolean livroencontrado = true;
             for (Livro livro : livros) {
@@ -131,6 +125,7 @@ public class CRUD {
             if(livroencontrado) System.out.println("Livro não encontrado!! ");
 
         } else if (opcao == 2) {
+            System.out.println("Insira o ISSN: ");
             String issn = ler.nextLine();
             boolean revistaencontrada = true;
             for (Revista revista : revistas) {
@@ -147,6 +142,7 @@ public class CRUD {
             if(revistaencontrada) System.out.println("Revista não encontrada!! ");
 
         } else if (opcao == 3) {
+            System.out.println("Insira o ISSN: ");
             String issn = ler.nextLine();
             boolean jornalencontrado = true;
             for (Jornal jornal : jornais) {
@@ -163,6 +159,7 @@ public class CRUD {
             if(jornalencontrado) System.out.println("Jornal não encontrado!! ");
 
         } else if (opcao == 4) {
+            System.out.println("Insira o NIF: ");
             String nif = ler.nextLine();
             boolean utenteencontrado = true;
             for (Utente utente : utentes) {
@@ -183,7 +180,7 @@ public class CRUD {
         }
 
     }
-    public void update() {
+    public static void update() {
         int posicao = 0;
         Scanner ler = new Scanner(System.in);
         System.out.println("Escolha a opção que deseja editar: ");
@@ -460,7 +457,7 @@ public class CRUD {
             }
         }
     }
-    public void remover () {
+    public static void remover () {
         int posicao = 0;
         Scanner ler = new Scanner(System.in);
         System.out.println("Escolha a opção que deseja remover: ");

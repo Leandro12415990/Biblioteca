@@ -29,7 +29,7 @@ public class Main {
 
             switch (opcao) {
                 case 1:
-
+                    CRUD.main();
                     break;
                 case 2:
                     Reserva.criarReserva();
@@ -38,7 +38,7 @@ public class Main {
                     Emprestimo.criarEmprestimo();
                     break;
                 case 4:
-
+                    CRUD.ler();
                     break;
                 case 5:
 
