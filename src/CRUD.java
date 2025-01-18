@@ -1,4 +1,6 @@
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class CRUD {
@@ -28,7 +30,7 @@ public class CRUD {
         String isbn = "";
         String autor = "";
         String issn = "";
-        String dataPublicacao = "";
+        LocalDate dataPublicacao = null;
         String nif = "";
         String nome = "";
         String genero = "";
@@ -61,9 +63,9 @@ public class CRUD {
             System.out.println("Indique o issn da revista:");
             issn = ler.nextLine();
             System.out.println("Indique a data de publicação da revista: ");
-            dataPublicacao = ler.nextLine();
-            Revista revista = new Revista(titulo, editora, categoria, issn, dataPublicacao);
-            revistas.add(new Revista(titulo, editora, categoria, issn, dataPublicacao));
+            dataPublicacao = LocalDate.parse(ler.nextLine());
+            Revista revista = new Revista(titulo, editora, categoria, issn, dataPublicacao.toString());
+            revistas.add(new Revista(titulo, editora, categoria, issn, dataPublicacao.toString()));
         } else if (opcao == 3) {
             System.out.println("Indique o titulo do jornal:");
             titulo = ler.nextLine();
@@ -74,9 +76,9 @@ public class CRUD {
             System.out.println("Indique o issn do jornal:");
             issn = ler.nextLine();
             System.out.println("Indique a data de publicação do jornal: ");
-            dataPublicacao = ler.nextLine();
-            Jornal jornal = new Jornal(titulo, editora, categoria, issn, dataPublicacao);
-            jornais.add(new Jornal(titulo, editora, categoria, issn, dataPublicacao));
+            dataPublicacao = LocalDate.parse(ler.nextLine());
+            Jornal jornal = new Jornal(titulo, editora, categoria, issn, dataPublicacao.toString());
+            jornais.add(new Jornal(titulo, editora, categoria, issn, dataPublicacao.toString()));
         } else if (opcao == 4) {
             System.out.println("Indique o nif do utente:");
             nif = ler.nextLine();
@@ -189,272 +191,298 @@ public class CRUD {
         System.out.println("3. Jornal ");
         System.out.println("4. Utente ");
         int opcao = ler.nextInt();
+        ler.nextLine();
         if (opcao == 1) {
-            System.out.println("Qual o Título do livro que deseja alterar? ");
-            String tituloup = ler.nextLine();
-            System.out.println("Quantas opções deseja alterar ");
-            int opcaoAlterar = ler.nextInt();
-            System.out.println("O que deseja alterar do livro ");
-            System.out.println("1. Titulo ");
-            System.out.println("2. Editora ");
-            System.out.println("3. Categoria ");
-            System.out.println("4. Ano edição ");
-            System.out.println("5. ISBN  ");
-            System.out.println("6. Autor ");
-            int[] opcaoLivro = new int[6];
-            for (int i = 0; i < opcaoAlterar; i++) {
-                opcaoLivro[i] = ler.nextInt();
-            }
-            Livro livroAlterar = new Livro("","","","","","");
-            for (Livro livro : livros) {
-                if (livro.getTitulo().equals(tituloup)) {
-                    livroAlterar = livros.get(posicao);
 
-                    break;
+            String ISBNup = "";
+            Boolean existe = false;
+            System.out.println("Qual o ISBN do livro que deseja alterar? ");
+            ISBNup = ler.nextLine();
+            do {
+                for (Livro livro : livros) {
+                    if (livro.getIsbn().equals(ISBNup)) {
+                        existe = true;
+                    }
                 }
-                posicao++ ;
-            }
-            for (int i = 0; i < opcaoLivro.length; i++) {
-                if (opcaoLivro[i] == 1) {
-                    System.out.println("Digite o novo titulo: ");
-                    String tituloNovo = ler.nextLine();
-                    livroAlterar.setTitulo(tituloNovo);
-                    livros.add(livroAlterar);
-                    break;
-                }
-                if (opcaoLivro[i] == 2) {
-                    System.out.println("Digite a nova Editora: ");
-                    String tituloNovo = ler.nextLine();
-                    livroAlterar.setTitulo(tituloNovo);
-                    livros.add(livroAlterar);
-                    break;
-                }
-                if (opcaoLivro[i] == 3) {
-                    System.out.println("Digite a nova Categoria: ");
-                    String tituloNovo = ler.nextLine();
-                    livroAlterar.setTitulo(tituloNovo);
-                    livros.add(livroAlterar);
-                    break;
-                }
-                if (opcaoLivro[i] == 4) {
-                    System.out.println("Digite o novo Ano edição: ");
-                    String tituloNovo = ler.nextLine();
-                    livroAlterar.setTitulo(tituloNovo);
-                    livros.add(livroAlterar);
-                    break;
-                }
-                if (opcaoLivro[i] == 5) {
-                    System.out.println("Digite o novo ISBN: ");
-                    String tituloNovo = ler.nextLine();
-                    livroAlterar.setTitulo(tituloNovo);
-                    livros.add(livroAlterar);
-                    break;
-                }
-                if (opcaoLivro[i] == 6) {
-                    System.out.println("Digite o novo Autor: ");
-                    String tituloNovo = ler.nextLine();
-                    livroAlterar.setTitulo(tituloNovo);
-                    livros.add(livroAlterar);
-                    break;
-                }
+                break;
+            }while (existe == false);
 
+            if (existe)
+            {
+                System.out.println("Quantas opções deseja alterar ");
+                int opcaoAlterar = ler.nextInt();
+                ler.nextLine();
+                System.out.println("O que deseja alterar do livro ");
+                System.out.println("1. Titulo ");
+                System.out.println("2. Editora ");
+                System.out.println("3. Categoria ");
+                System.out.println("4. Ano edição ");
+                System.out.println("5. ISBN  ");
+                System.out.println("6. Autor ");
+                int[] opcaoLivro = new int[6];
+                for (int i = 0; i < opcaoAlterar; i++) {
+                    opcaoLivro[i] = ler.nextInt();
+                    ler.nextLine();
+                }
+                Livro livroAlterar = new Livro("","","","","","");
+                for (Livro livro : livros) {
+                    if (livro.getTitulo().equals(ISBNup)) {
+                        livroAlterar = livros.get(posicao);
+                    }
+                    posicao++;
+                }
+                for (int i = 0; i < opcaoLivro.length; i++) {
+                    if (opcaoLivro[i] == 1) {
+                        System.out.println("Digite o novo titulo: ");
+                        String tituloNovo = ler.nextLine();
+                        livroAlterar.setTitulo(tituloNovo);
+                        livros.add(livroAlterar);
+                    }
+                    if (opcaoLivro[i] == 2) {
+                        System.out.println("Digite a nova Editora: ");
+                        String tituloNovo = ler.nextLine();
+                        livroAlterar.setEditora(tituloNovo);
+                        livros.add(livroAlterar);
+                    }
+                    if (opcaoLivro[i] == 3) {
+                        System.out.println("Digite a nova Categoria: ");
+                        String tituloNovo = ler.nextLine();
+                        livroAlterar.setCategoria(tituloNovo);
+                        livros.add(livroAlterar);
+                    }
+                    if (opcaoLivro[i] == 4) {
+                        System.out.println("Digite o novo Ano edição: ");
+                        String tituloNovo = ler.nextLine();
+                        livroAlterar.setAnoEdicao(tituloNovo);
+                        livros.add(livroAlterar);
+                    }
+                    if (opcaoLivro[i] == 5) {
+                        System.out.println("Digite o novo ISBN: ");
+                        String tituloNovo = ler.nextLine();
+                        livroAlterar.setIsbn(tituloNovo);
+                        livros.add(livroAlterar);
+                    }
+                    if (opcaoLivro[i] == 6) {
+                        System.out.println("Digite o novo Autor: ");
+                        String tituloNovo = ler.nextLine();
+                        livroAlterar.setAutor(tituloNovo);
+                        livros.add(livroAlterar);
+                    }
+
+                }
             }
+            else System.out.println("O livro com o ISBN " + ISBNup + ", não existe");
 
         } else if (opcao == 2)
         {
-            System.out.println("Qual o Título da revista que deseja alterar? ");
-            String tituloup = ler.nextLine();
-            System.out.println("Quantas opções deseja alterar ");
-            int opcaoAlterar = ler.nextInt();
-            System.out.println("O que deseja alterar do livro ");
-            System.out.println("1. Titulo ");
-            System.out.println("2. Editora ");
-            System.out.println("3. Categoria ");
-            System.out.println("4. ISSN ");
-            System.out.println("5. Data Publicação ");
-            int[] opcaoRevista = new int[6];
-            for (int i = 0; i < opcaoAlterar; i++) {
-                opcaoRevista[i] = ler.nextInt();
-            }
-            Revista revistaAlterar = new Revista("","","","","");
-            for (Revista revista : revistas) {
-                if (revista.getTitulo().equals(tituloup)) {
-                    revistaAlterar = revistas.get(posicao);
+            String ISSNup = "";
+            Boolean existe = false;
+            System.out.println("Qual o ISSN da revista que deseja alterar? ");
+            ISSNup = ler.nextLine();
+            do {
+                for (Revista revista : revistas) {
+                    if (revista.getIssn().equals(ISSNup)) {
+                        existe = true;
+                    }
+                }
+                break;
+            }while (existe == false);
 
-                    break;
+            if (existe)
+            {
+                System.out.println("Quantas opções deseja alterar ");
+                int opcaoAlterar = ler.nextInt();
+                System.out.println("O que deseja alterar do livro ");
+                System.out.println("1. Titulo ");
+                System.out.println("2. Editora ");
+                System.out.println("3. Categoria ");
+                System.out.println("4. ISSN ");
+                System.out.println("5. Data Publicação ");
+                int[] opcaoRevista = new int[6];
+                for (int i = 0; i < opcaoAlterar; i++) {
+                    opcaoRevista[i] = ler.nextInt();
+                    ler.nextLine();
                 }
-                posicao++ ;
+                Revista revistaAlterar = new Revista("","","","","");
+                for (Revista revista : revistas) {
+                    if (revista.getTitulo().equals(ISSNup)) {
+                        revistaAlterar = revistas.get(posicao);
+                    }
+                    posicao++;
+                }
+                for (int i = 0; i < opcaoRevista.length; i++) {
+                    if (opcaoRevista[i] == 1) {
+                        System.out.println("Digite o novo titulo da Revista: ");
+                        String tituloNovo = ler.nextLine();
+                        revistaAlterar.setTitulo(tituloNovo);
+                        revistas.add(revistaAlterar);
+                    }
+                    if (opcaoRevista[i] == 2) {
+                        System.out.println("Digite a nova Editora: ");
+                        String tituloNovo = ler.nextLine();
+                        revistaAlterar.setEditora(tituloNovo);
+                        revistas.add(revistaAlterar);
+                    }
+                    if (opcaoRevista[i] == 3) {
+                        System.out.println("Digite a nova Categoria: ");
+                        String tituloNovo = ler.nextLine();
+                        revistaAlterar.setCategoria(tituloNovo);
+                        revistas.add(revistaAlterar);
+                    }
+                    if (opcaoRevista[i] == 4) {
+                        System.out.println("Digite a nova Data de Publicação: ");
+                        String tituloNovo = ler.nextLine();
+                        revistaAlterar.setDataPublicacao(tituloNovo);
+                        revistas.add(revistaAlterar);
+                    }
+                    if (opcaoRevista[i] == 5) {
+                        System.out.println("Digite o novo ISSN: ");
+                        String tituloNovo = ler.nextLine();
+                        revistaAlterar.setIssn(tituloNovo);
+                        revistas.add(revistaAlterar);
+                    }
+                }
             }
-            for (int i = 0; i < opcaoRevista.length; i++) {
-                if (opcaoRevista[i] == 1) {
-                    System.out.println("Digite o novo titulo da Revista: ");
-                    String tituloNovo = ler.nextLine();
-                    revistaAlterar.setTitulo(tituloNovo);
-                    revistas.add(revistaAlterar);
-                    break;
-                }
-                if (opcaoRevista[i] == 2) {
-                    System.out.println("Digite a nova Editora: ");
-                    String tituloNovo = ler.nextLine();
-                    revistaAlterar.setTitulo(tituloNovo);
-                    revistas.add(revistaAlterar);
-                    break;
-                }
-                if (opcaoRevista[i] == 3) {
-                    System.out.println("Digite a nova Categoria: ");
-                    String tituloNovo = ler.nextLine();
-                    revistaAlterar.setTitulo(tituloNovo);
-                    revistas.add(revistaAlterar);
-                    break;
-                }
-                if (opcaoRevista[i] == 4) {
-                    System.out.println("Digite o novo ano de edição: ");
-                    String tituloNovo = ler.nextLine();
-                    revistaAlterar.setTitulo(tituloNovo);
-                    revistas.add(revistaAlterar);
-                    break;
-                }
-                if (opcaoRevista[i] == 5) {
-                    System.out.println("Digite o novo ISSN: ");
-                    String tituloNovo = ler.nextLine();
-                    revistaAlterar.setTitulo(tituloNovo);
-                    revistas.add(revistaAlterar);
-                    break;
-                }
-                if (opcaoRevista[i] == 6) {
-                    System.out.println("Digite o novo Autor: ");
-                    String tituloNovo = ler.nextLine();
-                    revistaAlterar.setTitulo(tituloNovo);
-                    revistas.add(revistaAlterar);
-                    break;
-                }
+            else System.out.println("A Revista com o ISSN " + ISSNup + ", não existe");
 
-            }
         } else if (opcao == 3)
         {
+            String ISSNup = "";
+            Boolean existe = false;
             System.out.println("Qual o Título do jornal que deseja alterar? ");
             String tituloup = ler.nextLine();
-            System.out.println("Quantas opções deseja alterar ");
-            int opcaoAlterar = ler.nextInt();
-            System.out.println("O que deseja alterar do Jornal ");
-            System.out.println("1. Titulo ");
-            System.out.println("2. Editora ");
-            System.out.println("3. Categoria ");
-            System.out.println("4. ISSN ");
-            System.out.println("5. Data Publicação ");
-            int[] opcaoJornal = new int[6];
-            for (int i = 0; i < opcaoAlterar; i++) {
-                opcaoJornal[i] = ler.nextInt();
-            }
-            Jornal jornalAlterar = new Jornal("","","","","");
-            for (Jornal jornal : jornais) {
-                if (jornal.getTitulo().equals(tituloup)) {
-                    jornalAlterar = jornais.get(posicao);
+            do {
+                for (Jornal jornal : jornais) {
+                    if (jornal.getIssn().equals(ISSNup)) {
+                        existe = true;
+                    }
+                }
+                break;
+            }while (existe == false);
 
-                    break;
+            if (existe)
+            {
+                System.out.println("Quantas opções deseja alterar ");
+                int opcaoAlterar = ler.nextInt();
+                ler.nextLine();
+                System.out.println("O que deseja alterar do Jornal ");
+                System.out.println("1. Titulo ");
+                System.out.println("2. Editora ");
+                System.out.println("3. Categoria ");
+                System.out.println("4. ISSN ");
+                System.out.println("5. Data Publicação ");
+                int[] opcaoJornal = new int[6];
+                for (int i = 0; i < opcaoAlterar; i++) {
+                    opcaoJornal[i] = ler.nextInt();
+                    ler.nextLine();
                 }
-                posicao++ ;
+                Jornal jornalAlterar = new Jornal("","","","","");
+                for (Jornal jornal : jornais) {
+                    if (jornal.getTitulo().equals(ISSNup)) {
+                        jornalAlterar = jornais.get(posicao);
+                    }
+                    posicao++ ;
+                }
+                for (int i = 0; i < opcaoJornal.length; i++) {
+                    if (opcaoJornal[i] == 1) {
+                        System.out.println("Digite o novo titulo do Jornal: ");
+                        String tituloNovo = ler.nextLine();
+                        jornalAlterar.setTitulo(tituloNovo);
+                        jornais.add(jornalAlterar);
+                    }
+                    if (opcaoJornal[i] == 2) {
+                        System.out.println("Digite a nova Editora: ");
+                        String tituloNovo = ler.nextLine();
+                        jornalAlterar.setEditora(tituloNovo);
+                        jornais.add(jornalAlterar);
+                    }
+                    if (opcaoJornal[i] == 3) {
+                        System.out.println("Digite a nova Categoria: ");
+                        String tituloNovo = ler.nextLine();
+                        jornalAlterar.setCategoria(tituloNovo);
+                        jornais.add(jornalAlterar);
+                    }
+                    if (opcaoJornal[i] == 4) {
+                        System.out.println("Digite a nova Data de publicação: ");
+                        String tituloNovo = ler.nextLine();
+                        jornalAlterar.setDataPublicacao(tituloNovo);
+                        jornais.add(jornalAlterar);
+                    }
+                    if (opcaoJornal[i] == 5) {
+                        System.out.println("Digite o novo ISSN: ");
+                        String tituloNovo = ler.nextLine();
+                        jornalAlterar.setIssn(tituloNovo);
+                        jornais.add(jornalAlterar);
+                    }
+                }
             }
-            for (int i = 0; i < opcaoJornal.length; i++) {
-                if (opcaoJornal[i] == 1) {
-                    System.out.println("Digite o novo titulo do Jornal: ");
-                    String tituloNovo = ler.nextLine();
-                    jornalAlterar.setTitulo(tituloNovo);
-                    jornais.add(jornalAlterar);
-                    break;
-                }
-                if (opcaoJornal[i] == 2) {
-                    System.out.println("Digite a nova Editora: ");
-                    String tituloNovo = ler.nextLine();
-                    jornalAlterar.setTitulo(tituloNovo);
-                    jornais.add(jornalAlterar);
-                    break;
-                }
-                if (opcaoJornal[i] == 3) {
-                    System.out.println("Digite a nova Categoria: ");
-                    String tituloNovo = ler.nextLine();
-                    jornalAlterar.setTitulo(tituloNovo);
-                    jornais.add(jornalAlterar);
-                    break;
-                }
-                if (opcaoJornal[i] == 4) {
-                    System.out.println("Digite o novo ano de edição: ");
-                    String tituloNovo = ler.nextLine();
-                    jornalAlterar.setTitulo(tituloNovo);
-                    jornais.add(jornalAlterar);
-                    break;
-                }
-                if (opcaoJornal[i] == 5) {
-                    System.out.println("Digite o novo ISSN: ");
-                    String tituloNovo = ler.nextLine();
-                    jornalAlterar.setTitulo(tituloNovo);
-                    jornais.add(jornalAlterar);
-                    break;
-                }
-                if (opcaoJornal[i] == 6) {
-                    System.out.println("Digite o novo Autor: ");
-                    String tituloNovo = ler.nextLine();
-                    jornalAlterar.setTitulo(tituloNovo);
-                    jornais.add(jornalAlterar);
-                    break;
-                }
+            else System.out.println("O Jornal com o ISSN " + ISSNup + ", não existe");
 
-            }
         } else if (opcao == 4)
         {
-            System.out.println("Qual o NIF do Utente que deseja alterar? ");
-            String tituloup = ler.nextLine();
-            System.out.println("Quantas opções deseja alterar ");
-            int opcaoAlterar = ler.nextInt();
-            System.out.println("O que deseja alterar do Utente ");
-            System.out.println("1. NIF ");
-            System.out.println("2. Nome ");
-            System.out.println("3. Género ");
-            System.out.println("4. Contacto ");
-            int[] opcaoUtente = new int[6];
-            for (int i = 0; i < opcaoAlterar; i++) {
-                opcaoUtente[i] = ler.nextInt();
-            }
-            Utente utenteAlterar = new Utente("","","","");
-            for (Utente utente : utentes) {
-                if (utenteAlterar.getNif().equals(tituloup)) {
-                    utenteAlterar = utentes.get(posicao);
+            String NIFNup = "";
+            Boolean existe = false;
+            do {
+                for (Utente utente : utentes) {
+                    if (utente.getNif().equals(NIFNup)) {
+                        existe = true;
+                    }
+                }
+                break;
+            }while (existe == false);
 
-                    break;
+            if (existe)
+            {
+                System.out.println("Qual o NIF do Utente que deseja alterar? ");
+                String tituloup = ler.nextLine();
+                System.out.println("Quantas opções deseja alterar ");
+                int opcaoAlterar = ler.nextInt();
+                ler.nextLine();
+                System.out.println("O que deseja alterar do Utente ");
+                System.out.println("1. NIF ");
+                System.out.println("2. Nome ");
+                System.out.println("3. Género ");
+                System.out.println("4. Contacto ");
+                int[] opcaoUtente = new int[6];
+                for (int i = 0; i < opcaoAlterar; i++) {
+                    opcaoUtente[i] = ler.nextInt();
+                    ler.nextLine();
                 }
-                posicao++ ;
+                Utente utenteAlterar = new Utente("","","","");
+                for (Utente utente : utentes) {
+                    if (utenteAlterar.getNif().equals(NIFNup)) {
+                        utenteAlterar = utentes.get(posicao);
+                    }
+                    posicao++;
+                }
+                for (int i = 0; i < opcaoUtente.length; i++) {
+                    if (opcaoUtente[i] == 1) {
+                        System.out.println("Digite o novo NIF: ");
+                        String tituloNovo = ler.nextLine();
+                        utenteAlterar.setNif(tituloNovo);
+                        utentes.add(utenteAlterar);
+                    }
+                    if (opcaoUtente[i] == 2) {
+                        System.out.println("Digite o novo Nome: ");
+                        String tituloNovo = ler.nextLine();
+                        utenteAlterar.setNome(tituloNovo);
+                        utentes.add(utenteAlterar);
+                    }
+                    if (opcaoUtente[i] == 3) {
+                        System.out.println("Digite o novo Género: ");
+                        String tituloNovo = ler.nextLine();
+                        utenteAlterar.setGenero(tituloNovo);
+                        utentes.add(utenteAlterar);
+                    }
+                    if (opcaoUtente[i] == 4) {
+                        System.out.println("Digite o novo Contacto: ");
+                        String tituloNovo = ler.nextLine();
+                        utenteAlterar.setContacto(tituloNovo);
+                        utentes.add(utenteAlterar);
+                    }
+                }
             }
-            for (int i = 0; i < opcaoUtente.length; i++) {
-                if (opcaoUtente[i] == 1) {
-                    System.out.println("Digite o novo NIF: ");
-                    String tituloNovo = ler.nextLine();
-                    utenteAlterar.setNif(tituloNovo);
-                    utentes.add(utenteAlterar);
-                    break;
-                }
-                if (opcaoUtente[i] == 2) {
-                    System.out.println("Digite o novo Nome: ");
-                    String tituloNovo = ler.nextLine();
-                    utenteAlterar.setNif(tituloNovo);
-                    utentes.add(utenteAlterar);
-                    break;
-                }
-                if (opcaoUtente[i] == 3) {
-                    System.out.println("Digite o novo Género: ");
-                    String tituloNovo = ler.nextLine();
-                    utenteAlterar.setNif(tituloNovo);
-                    utentes.add(utenteAlterar);
-                    break;
-                }
-                if (opcaoUtente[i] == 4) {
-                    System.out.println("Digite o novo Contacto: ");
-                    String tituloNovo = ler.nextLine();
-                    utenteAlterar.setNif(tituloNovo);
-                    utentes.add(utenteAlterar);
-                    break;
-                }
-
-            }
+            else System.out.println("O Utente com o ISSN " + NIFNup + ", não existe");
         }
     }
     public static void remover () {
@@ -466,48 +494,45 @@ public class CRUD {
         System.out.println("3. Jornal ");
         System.out.println("4. Utente ");
         int opcao = ler.nextInt();
+        ler.nextLine();
         if (opcao == 1) {
-            System.out.println("Qual o Título do livro que deseja remover? ");
-            String tituloremove = ler.nextLine();
+            System.out.println("Qual o ISBN do livro que deseja remover? ");
+            String ISBNremove = ler.nextLine();
             for (Livro livro : livros) {
-                if (livro.getTitulo().equals(tituloremove)) {
+                if (livro.getIsbn().equals(ISBNremove)) {
                     livros.remove(posicao);
-                    break;
                 }
-                posicao++ ;
+                posicao++;
             }
         }
         if (opcao == 2) {
-            System.out.println("Qual o Título da Revista que deseja remover? ");
-            String tituloremove = ler.nextLine();
+            System.out.println("Qual o ISSN da Revista que deseja remover? ");
+            String ISSNremove = ler.nextLine();
             for (Revista revista : revistas) {
-                if (revista.getTitulo().equals(tituloremove)) {
+                if (revista.getIssn().equals(ISSNremove)) {
                     revistas.remove(posicao);
-                    break;
                 }
-                posicao++ ;
+                posicao++;
             }
         }
         if (opcao == 3) {
-            System.out.println("Qual o Título da Jornal que deseja remover? ");
-            String tituloremove = ler.nextLine();
+            System.out.println("Qual o ISSN da Jornal que deseja remover? ");
+            String ISSNremove = ler.nextLine();
             for (Jornal jornal : jornais) {
-                if (jornal.getTitulo().equals(tituloremove)) {
+                if (jornal.getTitulo().equals(ISSNremove)) {
                     jornais.remove(posicao);
-                    break;
                 }
-                posicao++ ;
+                posicao++;
             }
         }
         if (opcao == 4) {
-            System.out.println("Qual o nif do utente que deseja remover? ");
+            System.out.println("Qual o NIF do utente que deseja remover? ");
             String nifremove = ler.nextLine();
             for (Utente utente : utentes) {
                 if (utente.getNif().equals(nifremove)) {
                     utentes.remove(posicao);
-                    break;
                 }
-                posicao++ ;
+                posicao++;
             }
         }
     }
