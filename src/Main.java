@@ -47,11 +47,16 @@ public class Main {
                     Reserva.criarReserva();
                     break;
                 case 6:
-                     Reserva.removerReserva();
-                case 7:
                     Emprestimo.criarEmprestimo();
+                case 7:
+                    Reserva.removerReserva();
                     break;
                 case 8:
+
+                case 9:
+
+                    break;
+                case 10:
                     Scanner ler = new Scanner(System.in);
                     int escolha = 0;
                     do {
@@ -68,17 +73,11 @@ public class Main {
                     }else
                         Reserva.consultarAlterarReserva();
                     break;
-                case 9:
+                case 11:
                     CRUD.apresentarListaDeUtentes();
                     break;
-                case 10:
-                    Emprestimo.totalEmprestimosPorIntervalo();
-                    break;
-                case 11:
-
-                    break;
                 case 12:
-
+                    Estatistica.totalEmprestimosPorIntervalo();
                     break;
                 case 13:
 
