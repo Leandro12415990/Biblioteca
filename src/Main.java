@@ -41,7 +41,7 @@ public class Main {
                     CRUD.ler();
                     break;
                 case 5:
-
+                    Reserva.removerReserva();
                     break;
                 case 6:
 

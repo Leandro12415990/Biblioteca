@@ -259,5 +259,29 @@ public class Reserva {
         }
     }
 
+    public static void removerReserva() {
+        Scanner ler = new Scanner(System.in);
+        System.out.println("\n--- Remover Reserva ---");
+
+        System.out.print("Informe o número da reserva que deseja remover: ");
+        int numeroReserva = ler.nextInt();
+        ler.nextLine();
+
+        Reserva reservaParaRemover = null;
+
+        for (Reserva reserva : listaReservas) {
+            if (reserva.getNumero() == numeroReserva) {
+                reservaParaRemover = reserva;
+                break;
+            }
+        }
+
+        if (reservaParaRemover != null) {
+            listaReservas.remove(reservaParaRemover);
+            System.out.println("Reserva removida com sucesso!");
+        } else {
+            System.out.println("Reserva não encontrada. Verifique o número informado e tente novamente.");
+        }
+    }
 
 }
