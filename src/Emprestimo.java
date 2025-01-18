@@ -146,21 +146,62 @@ public class Emprestimo {
             }
         }
 
-        LocalDate dataPrevistaDevolucao = null;
+        LocalDate dataPrevistaDevolucao = null; // Inicializa como nulo
+
+// Loop para garantir que a entrada seja válida
         while (dataPrevistaDevolucao == null) {
             try {
                 System.out.print("Data prevista de devolução (AAAA-MM-DD): ");
-                dataPrevistaDevolucao = LocalDate.parse(ler.nextLine());
+                String input = ler.nextLine(); // Lê a entrada do usuário
+
+                // Verifica se o usuário deixou em branco
+                if (input.trim().isEmpty()) {
+                    System.out.println("Data prevista de devolução não pode ser vazia. Tente novamente.");
+                    continue; // Reinicia o loop
+                }
+
+                // Tenta parsear a data
+                dataPrevistaDevolucao = LocalDate.parse(input);
+
+                // Valida se a data de devolução é depois ou igual à data de início
                 if (dataPrevistaDevolucao.isBefore(dataInicio)) {
                     System.out.println("A data prevista de devolução não pode ser anterior à data de início.");
-                    dataPrevistaDevolucao = null;
+                    dataPrevistaDevolucao = null; // Reseta para repetir o loop
                 }
             } catch (DateTimeParseException e) {
-                System.out.println("Data inválida. Tente novamente.");
+                System.out.println("Data inválida. Certifique-se de usar o formato AAAA-MM-DD.");
             }
         }
+        LocalDate dataEfetivaDevolucao = null;
+        System.out.print("Deseja inserir a data efetiva de devolução agora? (1 - Sim, 0 - Não): ");
+        int inserirDataEfetiva = ler.nextInt();
+        ler.nextLine();
 
-        // Validação contra empréstimos existentes
+        if (inserirDataEfetiva == 1) {
+            while (dataEfetivaDevolucao == null) {
+                try {
+                    System.out.print("Data efetiva de devolução (AAAA-MM-DD): ");
+                    String input = ler.nextLine();
+
+                    if (input.trim().isEmpty()) {
+                        System.out.println("A data efetiva de devolução não pode ser vazia se escolhida para inserção.");
+                        continue;
+                    }
+
+                    dataEfetivaDevolucao = LocalDate.parse(input);
+
+                    if (dataEfetivaDevolucao.isBefore(dataInicio)) {
+                        System.out.println("A data efetiva de devolução não pode ser anterior à data de início.");
+                        dataEfetivaDevolucao = null;
+                    }
+                } catch (DateTimeParseException e) {
+                    System.out.println("Data inválida. Certifique-se de usar o formato AAAA-MM-DD.");
+                }
+            }
+        } else {
+            System.out.println("Data efetiva de devolução será marcada como Pendente.");
+        }
+
         for (String livro : livrosParaEmprestimo) {
             for (Emprestimo emprestimo : listaEmprestimos) {
                 if (emprestimo.getLivros().contains(livro)) {
@@ -184,6 +225,121 @@ public class Emprestimo {
         System.out.println("Livros no empréstimo: " + emprestimo.getLivros());
         System.out.println("Data de início: " + emprestimo.getDataInicio());
         System.out.println("Data prevista de devolução: " + emprestimo.getDataPrevistaDevolucao());
-        System.out.println("Data efetiva de devolução: Pendente");
+        System.out.println("Data efetiva de devolução: " + (emprestimo.getDataEfetivaDevolucao() != null ? emprestimo.getDataEfetivaDevolucao() : "Pendente"));
     }
+
+    public static void consultarAlterarEmprestimo(){
+        Scanner ler = new Scanner(System.in);
+
+        System.out.print("Indique o número do empréstimo: ");
+        int numeroEmprestimo = ler.nextInt();
+        ler.nextLine();
+
+        Emprestimo emprestimo = null;
+        for (Emprestimo e : Emprestimo.listaEmprestimos) {
+            if (e.getNumero() == numeroEmprestimo) {
+                emprestimo = e;
+                break;
+            }
+        }
+
+        if (emprestimo == null) {
+            System.out.println("Empréstimo não encontrado!");
+            return;
+        }
+
+        while (true) {
+
+            System.out.println("Livros associados ao empréstimo:");
+            for (String livro : emprestimo.getLivros()) {
+                System.out.println("- " + livro);
+            }
+
+            System.out.println("\nO que deseja fazer?");
+            System.out.println("1. Adicionar Livro");
+            System.out.println("2. Remover Livro");
+            System.out.println("0. Sair");
+            System.out.print("Escolha uma opção: ");
+            int opcao = ler.nextInt();
+            ler.nextLine();
+
+            switch (opcao) {
+                case 1:
+
+                    System.out.print("Informe o título do livro a ser adicionado: ");
+                    String novoLivro = ler.nextLine();
+                    if (CRUD.verificarLivroExistente(novoLivro) != null) {
+                        if (!emprestimo.getLivros().contains(novoLivro)) {
+                            emprestimo.getLivros().add(novoLivro);
+                            System.out.println("Livro adicionado ao empréstimo.");
+                        } else {
+                            System.out.println("O livro já está associado a este empréstimo.");
+                        }
+                    } else {
+                        System.out.println("Livro não encontrado no sistema.");
+                    }
+                    break;
+
+                case 2:
+
+                    System.out.print("Informe o título do livro a ser removido: ");
+                    String livroRemover = ler.nextLine();
+                    if (emprestimo.getLivros().remove(livroRemover)) {
+                        System.out.println("Livro removido do empréstimo.");
+                    } else {
+                        System.out.println("O livro não está associado a este empréstimo.");
+                    }
+                    break;
+
+                case 0:
+
+                    System.out.println("A sair do menu de alteração de empréstimos...");
+                    return;
+
+                default:
+                    System.out.println("Opção inválida. Tente novamente.");
+            }
+        }
+    }
+
+    public static void totalEmprestimosPorIntervalo(){
+        Scanner ler = new Scanner(System.in);
+
+        LocalDate dataInicio = null;
+        while(dataInicio == null){
+            try{
+                System.out.println("Insira a hora de Inicio (AAAA-MM-DD): ");
+                dataInicio = LocalDate.parse(ler.nextLine());
+            }catch (DateTimeParseException e) {
+                System.out.println("Data inválida. Tente novamente.");
+            }
+        }
+
+        LocalDate dataFim = null;
+        while(dataFim == null){
+            try{
+                System.out.println("Insira a hora de Inicio (AAAA-MM-DD): ");
+                dataFim = LocalDate.parse(ler.nextLine());
+                if(dataFim.isBefore(dataInicio)){
+                    System.out.println("A data de fim não pode ser anterior à data de início. Tente novamente.");
+                    dataFim = null;
+                }
+            }catch (DateTimeParseException e) {
+                System.out.println("Data inválida. Tente novamente.");
+            }
+        }
+
+        int totalEmprestimos = 0;
+            for(Emprestimo emprestimo: Emprestimo.listaEmprestimos){
+                LocalDate dataEmprestimo = emprestimo.getDataInicio();
+                if(dataEmprestimo.isEqual(dataInicio) || dataEmprestimo.isAfter(dataFim) && dataEmprestimo.isEqual(dataFim) || dataEmprestimo.isBefore(dataFim)){
+                    totalEmprestimos++;
+                }
+            }
+
+        System.out.println("\n--- Total de Empréstimos no Intervalo de Datas ---");
+        System.out.println("Intervalo: " + dataInicio + " a " + dataFim);
+        System.out.println("Total de Empréstimos: " + totalEmprestimos);
+    }
+
 }

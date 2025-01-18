@@ -50,13 +50,27 @@ public class Main {
                     Emprestimo.criarEmprestimo();
                     break;
                 case 7:
+                    Scanner ler = new Scanner(System.in);
+                    int escolha = 0;
+                    do {
+                        System.out.println("Escolha a opção que deseja ir: ");
+                        System.out.println("1. Consultar/Alterar Emprestimo ");
+                        System.out.println("2. Consultar/Alterar Reserva ");
 
+                        escolha = ler.nextInt();
+                        ler.nextLine();
+                    } while (escolha != 1 && escolha != 2);
+
+                    if( escolha == 1){
+                        Emprestimo.consultarAlterarEmprestimo();
+                    }else
+                        Reserva.consultarAlterarReserva();
                     break;
                 case 8:
-
+                    CRUD.apresentarListaDeUtentes();
                     break;
                 case 9:
-
+                    Emprestimo.totalEmprestimosPorIntervalo();
                     break;
                 case 10:
 
