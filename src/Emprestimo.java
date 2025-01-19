@@ -2,8 +2,10 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.time.temporal.ChronoUnit;
 
 public class Emprestimo {
+    private static Scanner ler = new Scanner(System.in);
     public static ArrayList<Emprestimo> listaEmprestimos = new ArrayList<>(100);
     private static int proximoNumero = 1;
     private int numero;
@@ -71,7 +73,7 @@ public class Emprestimo {
     }
 
     public static void criarEmprestimo() {
-        Scanner ler = new Scanner(System.in);
+
         System.out.println("\n--- Criar Empréstimo ---");
 
         System.out.print("Insira o NIF do cliente: ");
@@ -226,7 +228,6 @@ public class Emprestimo {
     }
 
     public static void consultarAlterarEmprestimo(){
-        Scanner ler = new Scanner(System.in);
 
         System.out.print("Indique o número do empréstimo: ");
         int numeroEmprestimo = ler.nextInt();
@@ -299,6 +300,20 @@ public class Emprestimo {
         }
     }
 
-
-
+    public static void EmprestimosRealizados()
+    {
+        int nDias = 0, total = 0;
+        System.out.println("Insira a Data Inicio: ");
+        LocalDate dataInicio = LocalDate.parse(ler.nextLine());
+        System.out.println("Insira a Data Final: ");
+        LocalDate dataFinal = LocalDate.parse(ler.nextLine());
+        for (Emprestimo emprestimo : listaEmprestimos) {
+            if (emprestimo.getDataInicio().isAfter(dataInicio) && emprestimo.getDataEfetivaDevolucao().isBefore(dataFinal)) {
+                nDias++;
+                long diasDeDiferenca = ChronoUnit.DAYS.between(emprestimo.getDataInicio(), emprestimo.getDataEfetivaDevolucao());
+                total += diasDeDiferenca;
+            }
+        }
+        System.out.println("Media (em Dias): " + total/nDias);
+    }
 }

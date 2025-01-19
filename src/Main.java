@@ -48,6 +48,7 @@ public class Main {
                     break;
                 case 6:
                     Emprestimo.criarEmprestimo();
+                    break;
                 case 7:
                     Reserva.removerReserva();
                     break;
@@ -80,7 +81,7 @@ public class Main {
                     Estatistica.totalEmprestimosPorIntervalo();
                     break;
                 case 13:
-
+                    Emprestimo.EmprestimosRealizados();
                     break;
                 case 14:
 
