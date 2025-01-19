@@ -213,7 +213,7 @@ public class Emprestimo {
             }
         }
 
-        Emprestimo emprestimo = new Emprestimo(utente, livrosParaEmprestimo, dataInicio, dataPrevistaDevolucao, null);
+        Emprestimo emprestimo = new Emprestimo(utente, livrosParaEmprestimo, dataInicio, dataPrevistaDevolucao, dataEfetivaDevolucao);
         listaEmprestimos.add(emprestimo);
 
         System.out.println("\n Empréstimo Criado com Sucesso!");

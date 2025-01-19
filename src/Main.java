@@ -48,6 +48,7 @@ public class Main {
                     break;
                 case 6:
                     Emprestimo.criarEmprestimo();
+                    break;
                 case 7:
                     Reserva.removerReserva();
                     break;
