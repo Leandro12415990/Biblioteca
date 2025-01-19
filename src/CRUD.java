@@ -5,13 +5,13 @@ import java.util.Scanner;
 
 public class CRUD {
 
+    private static Scanner ler = new Scanner(System.in);
     public static ArrayList<Livro> livros = new ArrayList<Livro>();
     public static ArrayList<Revista> revistas = new ArrayList<Revista>();
     public static ArrayList<Jornal> jornais = new ArrayList<Jornal>();
     public static ArrayList<Utente> utentes = new ArrayList<Utente>();
 
     public static void main() {
-        Scanner ler = new Scanner(System.in);
         int opcao = 0;
         do {
             System.out.println("Escolha a opção que deseja ir: ");
@@ -96,7 +96,7 @@ public class CRUD {
     }
 
     public static void ler() {
-        Scanner ler = new Scanner(System.in);
+
         int opcao = 0;
         do {
             System.out.println("Escolha a opção que deseja pesquisar: ");
@@ -184,7 +184,6 @@ public class CRUD {
     }
     public static void update() {
         int posicao = 0;
-        Scanner ler = new Scanner(System.in);
         System.out.println("Escolha a opção que deseja editar: ");
         System.out.println("1. Livro ");
         System.out.println("2. Revista ");
@@ -487,7 +486,6 @@ public class CRUD {
     }
     public static void remover () {
         int posicao = 0;
-        Scanner ler = new Scanner(System.in);
         System.out.println("Escolha a opção que deseja remover: ");
         System.out.println("1. Livro ");
         System.out.println("2. Revista ");

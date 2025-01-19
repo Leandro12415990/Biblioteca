@@ -81,7 +81,7 @@ public class Main {
                     Estatistica.totalEmprestimosPorIntervalo();
                     break;
                 case 13:
-
+                    Emprestimo.EmprestimosRealizados();
                     break;
                 case 14:
 
