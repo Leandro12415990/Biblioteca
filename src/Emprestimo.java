@@ -300,20 +300,5 @@ public class Emprestimo {
         }
     }
 
-    public static void EmprestimosRealizados()
-    {
-        int nDias = 0, total = 0;
-        System.out.println("Insira a Data Inicio: ");
-        LocalDate dataInicio = LocalDate.parse(ler.nextLine());
-        System.out.println("Insira a Data Final: ");
-        LocalDate dataFinal = LocalDate.parse(ler.nextLine());
-        for (Emprestimo emprestimo : listaEmprestimos) {
-            if (emprestimo.getDataInicio().isAfter(dataInicio) && emprestimo.getDataEfetivaDevolucao().isBefore(dataFinal)) {
-                nDias++;
-                long diasDeDiferenca = ChronoUnit.DAYS.between(emprestimo.getDataInicio(), emprestimo.getDataEfetivaDevolucao());
-                total += diasDeDiferenca;
-            }
-        }
-        System.out.println("Media (em Dias): " + total/nDias);
-    }
+
 }

@@ -75,19 +75,19 @@ public class Main {
                         Reserva.consultarAlterarReserva();
                     break;
                 case 11:
-                    CRUD.apresentarListaDeUtentes();
+                    Estatistica.apresentarListaDeUtentes();
                     break;
                 case 12:
                     Estatistica.totalEmprestimosPorIntervalo();
                     break;
                 case 13:
-                    Emprestimo.EmprestimosRealizados();
+                    Estatistica.EmprestimosRealizados();
                     break;
                 case 14:
-
+                    Estatistica.itemMaisRequisitado();
                     break;
                 case 15:
-
+                    Estatistica.utentesComAtraso();
                     break;
                 case 0:
                     running = false;

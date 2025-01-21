@@ -553,26 +553,7 @@ public class CRUD {
         return null;
     }
 
-    public static void apresentarListaDeUtentes() {
-        ArrayList<String> listaDeUtentes = new ArrayList<>();
 
-        for (Reserva reserva : Reserva.listaReservas) {
-            if (!listaDeUtentes.contains(reserva.getUtente())) {
-                listaDeUtentes.add(reserva.getUtente());
-            }
-        }
-
-        for (Emprestimo emprestimo : Emprestimo.listaEmprestimos) {
-            if (!listaDeUtentes.contains(emprestimo.getUtente())) {
-                listaDeUtentes.add(emprestimo.getUtente());
-            }
-        }
-
-        System.out.println("\n--- Lista de Utentes da Biblioteca ---");
-        for (String utente : listaDeUtentes) {
-            System.out.println("- NIF: " + utente);
-        }
-    }
 
 
 }
