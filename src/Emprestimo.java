@@ -14,6 +14,8 @@ public class Emprestimo {
     private LocalDate dataInicio;
     private LocalDate dataPrevistaDevolucao;
     private LocalDate dataEfetivaDevolucao;
+    private static int nDias = 0;
+    private static float total = 0;
 
     public Emprestimo(String utente, ArrayList<String> livros, LocalDate dataInicio, LocalDate dataPrevistaDevolucao, LocalDate dataEfetivaDevolucao) {
         this.numero = proximoNumero++;
@@ -302,7 +304,6 @@ public class Emprestimo {
 
     public static void EmprestimosRealizados()
     {
-        int nDias = 0, total = 0;
         System.out.println("Insira a Data Inicio: ");
         LocalDate dataInicio = LocalDate.parse(ler.nextLine());
         System.out.println("Insira a Data Final: ");
