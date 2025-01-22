@@ -14,6 +14,8 @@ public class Emprestimo {
     private LocalDate dataInicio;
     private LocalDate dataPrevistaDevolucao;
     private LocalDate dataEfetivaDevolucao;
+    private static int nDias = 0;
+    private static float total = 0;
 
     public Emprestimo(String utente, ArrayList<String> livros, LocalDate dataInicio, LocalDate dataPrevistaDevolucao, LocalDate dataEfetivaDevolucao) {
         this.numero = proximoNumero++;
@@ -300,5 +302,19 @@ public class Emprestimo {
         }
     }
 
-
+    public static void EmprestimosRealizados()
+    {
+        System.out.println("Insira a Data Inicio: ");
+        LocalDate dataInicio = LocalDate.parse(ler.nextLine());
+        System.out.println("Insira a Data Final: ");
+        LocalDate dataFinal = LocalDate.parse(ler.nextLine());
+        for (Emprestimo emprestimo : listaEmprestimos) {
+            if (emprestimo.getDataInicio().isAfter(dataInicio) && emprestimo.getDataEfetivaDevolucao().isBefore(dataFinal)) {
+                nDias++;
+                long diasDeDiferenca = ChronoUnit.DAYS.between(emprestimo.getDataInicio(), emprestimo.getDataEfetivaDevolucao());
+                total += diasDeDiferenca;
+            }
+        }
+        System.out.println("Media (em Dias): " + total/nDias);
+    }
 }
