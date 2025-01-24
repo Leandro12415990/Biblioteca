@@ -1,16 +1,18 @@
+import java.time.LocalDate;
+
 public class Revista {
-    private String titulo;
-    private String editora;
-    private String categoria;
-    private String issn;
-    private String dataPublicacao;
+    public String titulo;
+    public String editora;
+    public String categoria;
+    public String issn;
+    public LocalDate dataPublicacao;
 
     public Revista(String titulo, String editora, String categoria, String issn, String dataPublicacao) {
         this.titulo = titulo;
         this.editora = editora;
         this.categoria = categoria;
         this.issn = issn;
-        this.dataPublicacao = dataPublicacao;
+        this.dataPublicacao = LocalDate.parse(dataPublicacao);
     }
 
     public String getTitulo() {
@@ -46,10 +48,10 @@ public class Revista {
     }
 
     public String getDataPublicacao() {
-        return dataPublicacao;
+        return dataPublicacao.toString();
     }
 
     public void setDataPublicacao(String dataPublicacao) {
-        this.dataPublicacao = dataPublicacao;
+        this.dataPublicacao = LocalDate.parse(dataPublicacao);
     }
 }

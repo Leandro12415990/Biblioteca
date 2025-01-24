@@ -1,16 +1,18 @@
+import java.time.LocalDate;
+
 public class Jornal {
-    private String titulo;
-    private String editora;
-    private String categoria;
-    private String issn;
-    private String dataPublicacao;
+    public String titulo;
+    public String editora;
+    public String categoria;
+    public String issn;
+    public LocalDate dataPublicacao;
 
     public Jornal(String titulo, String editora, String categoria, String issn, String dataPublicacao) {
         this.titulo = titulo;
         this.editora = editora;
         this.categoria = categoria;
         this.issn = issn;
-        this.dataPublicacao = dataPublicacao;
+        this.dataPublicacao = LocalDate.parse(dataPublicacao);
     }
 
     public String getTitulo() {
@@ -45,11 +47,7 @@ public class Jornal {
         this.issn = issn;
     }
 
-    public String getDataPublicacao() {
-        return dataPublicacao;
-    }
+    public String getDataPublicacao() { return dataPublicacao.toString(); }
 
-    public void setDataPublicacao(String dataPublicacao) {
-        this.dataPublicacao = dataPublicacao;
-    }
+    public void setDataPublicacao(String dataPublicacao) { this.dataPublicacao = LocalDate.parse(dataPublicacao); }
 }
