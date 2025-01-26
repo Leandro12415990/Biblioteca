@@ -89,6 +89,8 @@ public class Main {
                 case 15:
                     Estatistica.utentesComAtraso();
                     break;
+                case 16:
+                    break;
                 case 0:
                     running = false;
                     System.out.println("A sair do sistema...");
