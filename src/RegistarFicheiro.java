@@ -2,54 +2,50 @@ import java.io.*;
 import java.util.*;
 
 public class RegistarFicheiro {
-    class Livro implements Serializable {
-        private String titulo;
-        private String autor;
+    public static void main(String[] args) {
+        List<Livro> livros = new ArrayList<>();
+        List<Revista> revistas = new ArrayList<>();
+        List<Jornal> jornais = new ArrayList<>();
+        List<Utente> utentes = new ArrayList<>();
+        List<Reserva> reservas = new ArrayList<>();
+        List<Emprestimo> emprestimos = new ArrayList<>();
 
-        public Livro(String titulo, String autor) {
-            this.titulo = titulo;
-            this.autor = autor;
-        }
+        // Exibição dos dados
+        System.out.println("Livros:");
+        livros.forEach(System.out::println);
+        System.out.println("Revistas:");
+        revistas.forEach(System.out::println);
+        System.out.println("Jornais:");
+        jornais.forEach(System.out::println);
+        System.out.println("Utentes:");
+        utentes.forEach(System.out::println);
+        System.out.println("Reservas:");
+        reservas.forEach(System.out::println);
+        System.out.println("Emprestimos:");
+        emprestimos.forEach(System.out::println);
 
-        public String toString() {
-            return "Livro{" +
-                    "titulo='" + titulo + '\'' +
-                    ", autor='" + autor + '\'' +
-                    '}';
-        }
-    }
-
-    class Utente implements Serializable {
-        private String nome;
-        private int idade;
-
-        public Utente(String nome, int idade) {
-            this.nome = nome;
-            this.idade = idade;
-        }
-
-        public String toString() {
-            return "Utente{" +
-                    "nome='" + nome + '\'' +
-                    ", idade=" + idade +
-                    '}';
-        }
-    }
-
-    class Reserva implements Serializable {
-        private String utente;
-        private String livro;
-
-        public Reserva(String utente, String livro) {
-            this.utente = utente;
-            this.livro = livro;
-        }
-
-        public String toString() {
-            return "Reserva{" +
-                    "utente='" + utente + '\'' +
-                    ", livro='" + livro + '\'' +
-                    '}';
+        // Registro em ficheiro
+        try (PrintWriter writer = new PrintWriter(new FileWriter("saida.txt"))) {
+            for (Livro livro : livros) {
+                writer.println("Livro;" + livro);
+            }
+            for (Revista revista : revistas) {
+                writer.println("Revista;" + revista);
+            }
+            for (Jornal jornal : jornais) {
+                writer.println("Jornal;" + jornal);
+            }
+            for (Utente utente : utentes) {
+                writer.println("Utente;" + utente);
+            }
+            for (Reserva reserva : reservas) {
+                writer.println("Reserva;" + reserva);
+            }
+            for (Emprestimo emprestimo : emprestimos) {
+                writer.println("Emprestimo;" + emprestimo);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }
