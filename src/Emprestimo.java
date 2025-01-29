@@ -26,6 +26,15 @@ public class Emprestimo {
         this.dataEfetivaDevolucao = dataEfetivaDevolucao;
     }
 
+    public Emprestimo(int numero, String utente, ArrayList<String> livros, LocalDate dataInicio, LocalDate dataPrevistaDevolucao, LocalDate dataEfetivaDevolucao) {
+        this.numero = numero;
+        this.utente = utente;
+        this.livros = livros != null ? livros : new ArrayList<>();
+        this.dataInicio = dataInicio;
+        this.dataPrevistaDevolucao = dataPrevistaDevolucao;
+        this.dataEfetivaDevolucao = dataEfetivaDevolucao;
+    }
+
     public int getNumero() {
         return numero;
     }

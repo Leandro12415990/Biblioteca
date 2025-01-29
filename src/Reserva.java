@@ -22,6 +22,15 @@ public class Reserva {
         this.dataFim = dataFim;
     }
 
+    public Reserva(int numero, String utente, ArrayList<String> livros, LocalDate dataRegisto, LocalDate dataInicio, LocalDate dataFim) {
+        this.numero = numero;
+        this.utente = utente;
+        this.livros = livros != null ? livros : new ArrayList<>();
+        this.dataRegisto = dataRegisto;
+        this.dataInicio = dataInicio;
+        this.dataFim = dataFim;
+    }
+
     // Getters e Setters
 
     public int getNumero() {
