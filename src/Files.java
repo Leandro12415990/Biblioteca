@@ -4,85 +4,136 @@ import java.util.*;
 
 public class Files {
     private static Scanner scanner = new Scanner(System.in);
-    private static ArrayList<Livro> livros = new ArrayList<Livro>();
-    private static ArrayList<Revista> revistas = new ArrayList<Revista>();
-    private static ArrayList<Jornal> jornais = new ArrayList<Jornal>();
-    private static ArrayList<Utente> utentes = new ArrayList<Utente>();
-    private static ArrayList<Reserva> reservas = new ArrayList<Reserva>();
-    private static ArrayList<Emprestimo> emprestimos = new ArrayList<Emprestimo>();
-    public static void main(String[] args) {
-        int opcao = 0;
-        do {
-            System.out.println("Deseja registar ou ler: ");
-            System.out.println("1. Registar ");
-            System.out.println("2. ler ");
-            opcao = scanner.nextInt();
-            scanner.nextLine();
-        } while (opcao != 1 && opcao != 2 && opcao != 3 && opcao != 4);
 
-        if (opcao == 1) LerFicheiro();
-    }
-
-    private static void LerFicheiro()
+    public static void registarFicheiroLivros(List<Livro> livros)
     {
-        try{
-            BufferedReader reader = new BufferedReader(new FileReader("Biblioteca.txt"));
-            String line;
-            while ((line = reader.readLine()) != null) {
-                String[] partes = line.split(";"); // Supondo que os campos são separados por ponto e vírgula
-
-                // O ficheiro contem dados de livros (exemplo: Livro;Autor;ISBN...)
-                if (partes.length == 6) {
-                    livros.add(new Livro(partes[0], partes[1], partes[2], partes[3], partes[4], partes[5]));
-                }
-                else if (partes.length == 5) {
-                    jornais.add(new Jornal(partes[0], partes[1], partes[2], partes[3], partes[4]));
-                }
-                else if (partes.length == 5) {
-                    revistas.add(new Revista(partes[0], partes[1], partes[2], partes[3], partes[4]));
-                }
-                // O ficheiro contem dados de utentes (exemplo: Nome, Contacto...)
-                else if (partes.length == 4) {
-                    utentes.add(new Utente(partes[0], partes[1], partes[2], partes[3]);
-                }
-                // Se o ficheiro contiver dados de reservas (exemplo: Utente;Livro;Data)
-                else if (partes.length == 6) {
-                    reservas.add(new Reserva(partes[0], partes[1], partes[2], partes[3]));
-                }
-                else if (partes.length == 3) {
-                    emprestimos.add(new Emprestimo(partes[0], partes[1], partes[2], partes[3], partes[4]));
-                }
+        try (FileWriter writer = new FileWriter("Biblioteca.txt")) {
+            for (Livro livro : livros) {
+                writer.write(String.format("ISBN: %s; Nome: %s; Editora: %s; Categoria: %s; Ano: %s; Autor: %s\n",
+                        livro.getTitulo(),
+                        livro.getEditora(),
+                        livro.getCategoria(),
+                        livro.getAnoEdicao(),
+                        livro.getIsbn(),
+                        livro.getAutor()));
             }
-
-            reader.close();
+            System.out.println("\nLivros exportados com sucesso para o ficheiro!");
         } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        // Exibir os dados lidos
-        System.out.println("Livros:");
-        for (Livro livro : livros) {
-            System.out.println(livro);
-        }
-        System.out.println("\nJornais:");
-        for (Jornal jornal : jornais) {
-            System.out.println(jornal);
-        }
-        System.out.println("\nRevistas:");
-        for (Revista revista : revistas) {
-            System.out.println(revista);
-        }
-        System.out.println("\nUtentes:");
-        for (Utente utente : utentes) {
-            System.out.println(utente);
-        }
-        System.out.println("\nReservas:");
-        for (Reserva reserva : reservas) {
-            System.out.println(reserva);
-        }
-        System.out.println("\nEmprestimos:");
-        for (Emprestimo emprestimo : emprestimos) {
-            System.out.println(emprestimo);
+            System.out.println("Erro ao salvar os livros: " + e.getMessage());
         }
     }
+    public static void registarFicheiroRevistas(List<Revista> revistas)
+    {
+        try (FileWriter writer = new FileWriter("Biblioteca.txt")) {
+            for (Revista revista : revistas) {
+                writer.write(String.format("Titulo: %s; Editora: %s; Categoria: %s; Issn: %s; Data de Publicação: %s;\n",
+                        revista.getTitulo(),
+                        revista.getEditora(),
+                        revista.getCategoria(),
+                        revista.getIssn(),
+                        revista.getDataPublicacao()));
+            }
+            System.out.println("\nRevistas exportados com sucesso para o ficheiro!");
+        } catch (IOException e) {
+            System.out.println("Erro ao salvar as Revistas: " + e.getMessage());
+        }
+    }
+    public static void registarFicheiroJornais(List<Jornal> jornais)
+    {
+        try (FileWriter writer = new FileWriter("Biblioteca.txt")) {
+            for (Jornal jornal : jornais) {
+                writer.write(String.format("Titulo: %s; Editora: %s; Categoria: %s; Issn: %s; Data de Publicação: %s;\n",
+                        jornal.getTitulo(),
+                        jornal.getEditora(),
+                        jornal.getCategoria(),
+                        jornal.getIssn(),
+                        jornal.getDataPublicacao()));
+            }
+            System.out.println("\nJornais exportados com sucesso para o ficheiro!");
+        } catch (IOException e) {
+            System.out.println("Erro ao salvar os jornais: " + e.getMessage());
+        }
+    }
+    public static void registarFicheiroUtentes(List<Utente> utentes)
+    {
+        try (FileWriter writer = new FileWriter("Biblioteca.txt")) {
+            for (Utente utente : utentes) {
+                writer.write(String.format("NIF: %s; Nome: %s; Genero: %s; Contacto: %s\n",
+                        utente.getNif(),
+                        utente.getNome(),
+                        utente.getGenero(),
+                        utente.getContacto()));
+            }
+            System.out.println("\nUtentes exportados com sucesso para o ficheiro!");
+        } catch (IOException e) {
+            System.out.println("Erro ao salvar os utentes: " + e.getMessage());
+        }
+    }
+    public static void registarFicheiroReserva(List<Reserva> reservas)
+    {
+        try (FileWriter writer = new FileWriter("Biblioteca.txt")) {
+            for (Reserva reserva : reservas) {
+                writer.write(String.format("Número: %d; Utente: %s; Livro: %s; Data de registo: %s; Data de Inicio: %s; Data de Fim: %s\n",
+                        reserva.getNumero(),
+                        reserva.getUtente(),
+                        reserva.getLivros(),
+                        reserva.getDataRegisto(),
+                        reserva.getDataInicio(),
+                        reserva.getDataFim()));
+            }
+            System.out.println("\nReservas exportadas com sucesso para o ficheiro!");
+        } catch (IOException e) {
+            System.out.println("Erro ao salvar os reservas: " + e.getMessage());
+        }
+    }
+    public static void registarFicheiroEmprestimo(List<Emprestimo> emprestimos)
+    {
+        try (FileWriter writer = new FileWriter("Biblioteca.txt")) {
+            for (Emprestimo emprestimo : emprestimos) {
+                writer.write(String.format("Número: %d; Utente: %s; Livro: %s; Data de Inicio: %s; Data Prevista de Devolução: %s; Data Efetiva de Devolução: %s\n",
+                        emprestimo.getNumero(),
+                        emprestimo.getUtente(),
+                        emprestimo.getLivros(),
+                        emprestimo.getDataInicio(),
+                        emprestimo.getDataPrevistaDevolucao(),
+                        emprestimo.getDataEfetivaDevolucao()));
+            }
+            System.out.println("\nEmprestimos exportados com sucesso para o ficheiro!");
+        } catch (IOException e) {
+            System.out.println("Erro ao salvar os emprestimos: " + e.getMessage());
+        }
+    }
+
+    public static List<Livro> LerLivros() {
+        List<Livro> livros = new ArrayList<>();
+        int countLinhas = 0;
+
+        try (BufferedReader br = new BufferedReader(new FileReader("Biblioteca.txt"))) {
+            String linha;
+
+            while ((linha = br.readLine()) != null) {
+                linha = linha.trim();
+
+                if (linha.isEmpty()) continue;
+
+                String[] dados = linha.split(";");
+
+                String titulo = dados[0].replace("ISBN: ", "").trim();
+                String editora = dados[1].replace("Nome: ", "").trim();
+                String categoria = dados[2].replace("Editora: ", "").trim();
+                String anoEdicao = dados[3].replace("Categoria: ", "").trim();
+                String isbn = dados[4].replace("Ano: ", "").trim();
+                String autor = dados[5].replace("Autor: ", "").trim();
+
+                Livro livro = new Livro(titulo, editora, categoria, anoEdicao, isbn, autor);
+                livros.add(livro);
+                countLinhas++;
+            }
+        } catch (IOException e) {
+            System.out.println("Erro ao carregar livros: " + e.getMessage());
+        }
+        System.out.println("Foram lidos um total de: " + countLinhas + " livros");
+        return livros;
+    }
+
 }

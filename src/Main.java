@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
@@ -54,6 +55,7 @@ public class Main {
                     break;
                 case 8:
 
+                    break;
                 case 9:
 
                     break;
@@ -90,6 +92,22 @@ public class Main {
                     Estatistica.utentesComAtraso();
                     break;
                 case 16:
+                    Files.registarFicheiroLivros(CRUD.livros);
+                    break;
+                case 17:
+                    Files.registarFicheiroRevistas(CRUD.revistas);
+                    break;
+                case 18:
+                    Files.registarFicheiroJornais(CRUD.jornais);
+                    break;
+                case 19:
+                    Files.registarFicheiroUtentes(CRUD.utentes);
+                    break;
+                case 20:
+                    Files.registarFicheiroReserva(Reserva.listaReservas);
+                    break;
+                case 21:
+                    Files.registarFicheiroEmprestimo(Emprestimo.listaEmprestimos);
                     break;
                 case 0:
                     running = false;

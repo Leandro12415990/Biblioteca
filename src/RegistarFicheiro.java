@@ -25,7 +25,7 @@ public class RegistarFicheiro {
         emprestimos.forEach(System.out::println);
 
         // Registro em ficheiro
-        try (PrintWriter writer = new PrintWriter(new FileWriter("saida.txt"))) {
+        try (PrintWriter writer = new PrintWriter(new FileWriter("Biblioteca.txt"))) {
             for (Livro livro : livros) {
                 writer.println("Livro;" + livro);
             }
