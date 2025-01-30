@@ -59,8 +59,8 @@ public class Main {
                     System.out.println("2. Pesquisar Revistas.");
                     System.out.println("3. Pesquisar Jornais.");
                     System.out.println("0. Sair");
-                    int opçao = scanner.nextInt();
-                     switch (opcao){
+                    int escolha2 = scanner.nextInt();
+                     switch (escolha2){
                          case 1:
                              Pesquisa.pesquisarLivros();
                              break;
