@@ -8,6 +8,7 @@ public class Pesquisa {
         System.out.print("Insira o ISBN: ");
         String isbn = ler.nextLine();
 
+
         boolean encontradoLivro = false;
         for (Livro livro : CRUD.livros) {
             if (livro.getIsbn().equals(isbn)) {
@@ -22,6 +23,7 @@ public class Pesquisa {
                 break;
             }
         }
+        System.out.println("Não foi encontrado nenhum livro com esse ISBN.");
     }
 
     public static void pesquisarJornais() {
@@ -43,6 +45,7 @@ public class Pesquisa {
                 break;
             }
         }
+        System.out.println("Não foi encontrado nenhum Jornal com esse ISSN.");
     }
 
     public static void pesquisarRevistas() {
@@ -64,5 +67,6 @@ public class Pesquisa {
                 break;
             }
         }
+        System.out.println("Não foi encontrado nenhuma revista com esse ISSN.");
     }
 }
