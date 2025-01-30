@@ -54,6 +54,28 @@ public class Main {
                     Reserva.removerReserva();
                     break;
                 case 8:
+                    System.out.println("Insira uma opção: ");
+                    System.out.println("1. Pesquisar Livros.");
+                    System.out.println("2. Pesquisar Revistas.");
+                    System.out.println("3. Pesquisar Jornais.");
+                    System.out.println("0. Sair");
+                    int opçao = scanner.nextInt();
+                     switch (opcao){
+                         case 1:
+                             Pesquisa.pesquisarLivros();
+                             break;
+                         case 2:
+                             Pesquisa.pesquisarRevistas();
+                             break;
+                         case 3:
+                             Pesquisa.pesquisarJornais();
+                             break;
+                         case 0:
+                             break;
+                         default:
+                             System.out.println("Opção inválida. Tente novamente.");
+
+                     }
 
                     break;
                 case 9:
