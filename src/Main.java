@@ -79,7 +79,7 @@ public class Main {
 
                     break;
                 case 9:
-
+                    Pesquisa.pesquisarEmprestimosEReservasPorUtente();
                     break;
                 case 10:
                     Scanner ler = new Scanner(System.in);

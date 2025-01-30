@@ -1,3 +1,5 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 public class Pesquisa {
@@ -63,6 +65,83 @@ public class Pesquisa {
                 encontradoRevista = true;
                 break;
             }
+        }
+    }
+
+    public static void pesquisarEmprestimosEReservasPorUtente() {
+        Scanner ler = new Scanner(System.in);
+
+        // Solicita o NIF do utente
+        System.out.println("\n--- Pesquisa de Empréstimos e Reservas por Utente ---");
+        System.out.print("Insira o NIF do utente: ");
+        String nif = ler.nextLine();
+
+        // Verifica se o utente existe
+        Utente utente = CRUD.encontrarUtentePorNif(nif);
+        if (utente == null) {
+            System.out.println("Utente não encontrado!");
+            return;
+        }
+
+        // Solicita o intervalo de datas
+        LocalDate dataInicio = null, dataFim = null;
+
+        while (dataInicio == null) {
+            try {
+                System.out.print("Insira a data de início (AAAA-MM-DD): ");
+                dataInicio = LocalDate.parse(ler.nextLine());
+            } catch (DateTimeParseException e) {
+                System.out.println("Data inválida. Tente novamente.");
+            }
+        }
+
+        while (dataFim == null) {
+            try {
+                System.out.print("Insira a data final (AAAA-MM-DD): ");
+                dataFim = LocalDate.parse(ler.nextLine());
+                if (dataFim.isBefore(dataInicio)) {
+                    System.out.println("A data final não pode ser anterior à data de início.");
+                    dataFim = null;
+                }
+            } catch (DateTimeParseException e) {
+                System.out.println("Data inválida. Tente novamente.");
+            }
+        }
+
+        // Pesquisa os empréstimos do utente no intervalo de datas
+        System.out.println("\n--- Empréstimos do Utente no Intervalo de Datas ---");
+        boolean encontrouEmprestimo = false;
+        for (Emprestimo emprestimo : Emprestimo.listaEmprestimos) {
+            if (emprestimo.getUtente().equals(nif) &&
+                    !(emprestimo.getDataInicio().isBefore(dataInicio) || emprestimo.getDataInicio().isAfter(dataFim))) {
+                encontrouEmprestimo = true;
+                System.out.println("\nNúmero do Empréstimo: " + emprestimo.getNumero());
+                System.out.println("Livros emprestados: " + emprestimo.getLivros());
+                System.out.println("Data de início: " + emprestimo.getDataInicio());
+                System.out.println("Data prevista de devolução: " + emprestimo.getDataPrevistaDevolucao());
+                System.out.println("Data efetiva de devolução: " +
+                        (emprestimo.getDataEfetivaDevolucao() != null ? emprestimo.getDataEfetivaDevolucao() : "Pendente"));
+            }
+        }
+        if (!encontrouEmprestimo) {
+            System.out.println("Nenhum empréstimo encontrado para este utente no intervalo de datas informado.");
+        }
+
+        // Pesquisa as reservas do utente no intervalo de datas
+        System.out.println("\n--- Reservas do Utente no Intervalo de Datas ---");
+        boolean encontrouReserva = false;
+        for (Reserva reserva : Reserva.listaReservas) {
+            if (reserva.getUtente().equals(nif) &&
+                    !(reserva.getDataInicio().isBefore(dataInicio) || reserva.getDataInicio().isAfter(dataFim))) {
+                encontrouReserva = true;
+                System.out.println("\nNúmero da Reserva: " + reserva.getNumero());
+                System.out.println("Livros reservados: " + reserva.getLivros());
+                System.out.println("Data de início: " + reserva.getDataInicio());
+                System.out.println("Data de fim: " + reserva.getDataFim());
+            }
+        }
+        if (!encontrouReserva) {
+            System.out.println("Nenhuma reserva encontrada para este utente no intervalo de datas informado.");
         }
     }
 }
