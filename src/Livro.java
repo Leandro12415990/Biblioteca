@@ -7,12 +7,12 @@ import java.util.Scanner;
 public class Livro {
 
     // Atributos da classe
-    private String titulo;
-    private String editora;
-    private String categoria;
-    private String anoEdicao;
-    private String isbn;
-    private String autor;
+    public String titulo;
+    public String editora;
+    public String categoria;
+    public String anoEdicao;
+    public String isbn;
+    public String autor;
 
     /**
      * Construtor da classe Livro, responsável por inicializar um objeto Livro com as informações fornecidas.

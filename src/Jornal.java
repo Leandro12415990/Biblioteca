@@ -7,11 +7,11 @@ import java.time.LocalDate;
 public class Jornal {
 
     // Atributos da classe
-    private String titulo;
-    private String editora;
-    private String categoria;
-    private String issn;
-    private LocalDate dataPublicacao;
+    public String titulo;
+    public String editora;
+    public String categoria;
+    public String issn;
+    public LocalDate dataPublicacao;
 
     /**
      * Construtor da classe Jornal, responsável por inicializar um objeto com os dados fornecidos.
