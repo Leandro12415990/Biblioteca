@@ -1,5 +1,6 @@
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Scanner;
 /**
  * Classe CRUD para manipulação de livros, revistas, jornais e utentes.

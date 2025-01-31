@@ -36,8 +36,18 @@ public class Main {
             System.out.println("13. Tempo médio (em dias) dos empréstimos realizados num intervalo de datas");
             System.out.println("14. Requisitado (empréstimos e reservas) durante um intervalo de datas");
             System.out.println("15. Lista dos utentes cuja devolução dos itens emprestados tenha um atraso superior a um número de dias");
-            System.out.println("16. Registar em ficheiro toda a informação");
-            System.out.println("17. Ler de um ficheiro toda a informação");
+            System.out.println("16. Registar Ficheiro Livros");
+            System.out.println("17. Registar Ficheiro Revistas");
+            System.out.println("18. Registar Ficheiro Jornais");
+            System.out.println("19. Registar Ficheiro Utentes");
+            System.out.println("20. Registar Ficheiro Reserva");
+            System.out.println("21. Registar Ficheiro Emprestimo");
+            System.out.println("22. Ler Ficheiro Livros");
+            System.out.println("23. Ler Ficheiro Revistas");
+            System.out.println("24. Ler Ficheiro Jornais");
+            System.out.println("25. Ler Ficheiro Utentes");
+            System.out.println("26. Ler Ficheiro Reserva");
+            System.out.println("27. Ler Ficheiro Emprestimo");
             System.out.println("0. Sair");
             System.out.print("Escolha uma opção: ");
 
@@ -145,6 +155,24 @@ public class Main {
                     break;
                 case 21:
                     Files.registarFicheiroEmprestimo(Emprestimo.listaEmprestimos); // Regista empréstimos em um arquivo
+                    break;
+                case 22:
+                    Files.LerLivros();
+                    break;
+                case 23:
+                    Files.LerRevistas();
+                    break;
+                case 24:
+                    Files.LerJornais();
+                    break;
+                case 25:
+                    Files.LerUtentes();
+                    break;
+                case 26:
+                    Files.LerReservas();
+                    break;
+                case 27:
+                    Files.LerEmprestimos();
                     break;
                 case 0:
                     running = false; // Encerra o loop e finaliza o programa

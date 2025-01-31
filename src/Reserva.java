@@ -196,7 +196,7 @@ public class Reserva {
         ArrayList<String> livrosParaReserva = new ArrayList<>();
         for (int i = 0; i < quantidadeLivros; i++) {
             while (true) {
-                System.out.print("Título do livro " + (i + 1) + ": ");
+                System.out.print("ISBN do livro " + (i + 1) + ": ");
                 String livro = ler.nextLine();
 
                 // Verifica se o livro existe no sistema
