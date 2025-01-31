@@ -535,9 +535,9 @@ public class CRUD {
         }
     }
 
-    public static Livro verificarLivroExistente(String titulo) {
+    public static Livro verificarLivroExistente(String isbn) {
         for (Livro livro : livros) {
-            if (livro.getTitulo().equals(titulo)) {
+            if (livro.getIsbn().equals(isbn)) {
                 return livro;
             }
         }
