@@ -3,10 +3,18 @@ import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoUnit;
 import java.util.Scanner;
 import java.util.ArrayList;
-
+/**
+ * Classe que fornece estatísticas sobre empréstimos e reservas na biblioteca.
+ * Inclui funcionalidades para análise de dados, como total de empréstimos,
+ * itens mais requisitados e utentes com atrasos.
+ *
+ * @author Daniel
+ */
 
 public class Estatistica {
-
+    /**
+     * Calcula o total de empréstimos realizados dentro de um intervalo de tempo especificado pelo usuário.
+     */
     public static void totalEmprestimosPorIntervalo(){
         Scanner ler = new Scanner(System.in);
 
@@ -48,7 +56,9 @@ public class Estatistica {
         System.out.println("Intervalo: " + dataInicio + " a " + dataFim);
         System.out.println("Total de Empréstimos: " + totalEmprestimos);
     }
-
+    /**
+     * Calcula a média de dias de duração dos empréstimos dentro de um intervalo de tempo fornecido pelo usuário.
+     */
     public static void EmprestimosRealizados(){
         Scanner ler = new Scanner(System.in);
         int nDias = 0, total = 0;
@@ -65,7 +75,10 @@ public class Estatistica {
         }
         System.out.println("Media (em Dias): " + total/nDias);
     }
-
+    /**
+     * Determina o item mais requisitado dentro de um período específico.
+     * Considera tanto empréstimos quanto reservas de livros.
+     */
     public static void itemMaisRequisitado() {
             Scanner ler = new Scanner(System.in);
 
@@ -149,7 +162,9 @@ public class Estatistica {
                 System.out.println("\nNenhum item foi requisitado no intervalo de datas fornecido.");
             }
         }
-
+    /**
+     * Apresenta uma lista de todos os utentes que realizaram empréstimos ou reservas.
+     */
     public static void apresentarListaDeUtentes() {
         ArrayList<String> listaDeUtentes = new ArrayList<>();
 
@@ -170,7 +185,9 @@ public class Estatistica {
             System.out.println("- NIF: " + utente);
         }
     }
-
+    /**
+     * Identifica os utentes que possuem empréstimos com atraso superior a um número de dias especificado pelo usuário.
+     */
     public static void utentesComAtraso() {
         Scanner ler = new Scanner(System.in);
 

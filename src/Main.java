@@ -1,12 +1,25 @@
 import java.util.Scanner;
 import java.util.ArrayList;
 
+/**
+ * Classe principal que oferece o menu interativo para o utilizador escolher entre várias funcionalidades
+ * relacionadas ao CRUD, reservas, empréstimos, pesquisas, estatísticas e manipulação de arquivos.
+ */
 public class Main {
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        boolean running = true;
 
+    /**
+     * Método principal que exibe um menu com opções interativas para o utilizador.
+     * Dependendo da escolha do utilizador, o sistema chama os métodos apropriados para manipulação
+     * de dados ou exibição de informações.
+     */
+    public static void main(String[] args) {
+        // Scanner para entrada de dados do utilizador
+        Scanner scanner = new Scanner(System.in);
+        boolean running = true; // Controlo para manter o programa em execução
+
+        // Loop principal para exibição do menu até que o utilizador escolha sair
         while (running) {
+            // Exibe o menu de opções
             System.out.println("\n=== MENU ===");
             System.out.println("1. CRUD - Criar");
             System.out.println("2. CRUD - Ler");
@@ -38,108 +51,110 @@ public class Main {
             System.out.println("0. Sair");
             System.out.print("Escolha uma opção: ");
 
+            // Lê a opção escolhida pelo utilizador
             int opcao = scanner.nextInt();
-            scanner.nextLine();
+            scanner.nextLine(); // Limpa o buffer de entrada
 
+            // Ação baseada na opção escolhida pelo utilizador
             switch (opcao) {
                 case 1:
-                    CRUD.main();
+                    CRUD.main(); // Chama o método de criação no CRUD
                     break;
                 case 2:
-                    CRUD.ler();
+                    CRUD.ler(); // Chama o método de leitura no CRUD
                     break;
                 case 3:
-                    CRUD.update();
+                    CRUD.update(); // Chama o método de alteração no CRUD
                     break;
                 case 4:
-                    CRUD.remover();
+                    CRUD.remover(); // Chama o método de remoção no CRUD
                     break;
                 case 5:
-                    Reserva.criarReserva();
+                    Reserva.criarReserva(); // Cria uma nova reserva
                     break;
                 case 6:
-                    Emprestimo.criarEmprestimo();
+                    Emprestimo.criarEmprestimo(); // Cria um novo empréstimo
                     break;
                 case 7:
-                    Reserva.removerReserva();
+                    Reserva.removerReserva(); // Remove uma reserva existente
                     break;
                 case 8:
+                    // Exibe o menu para pesquisar livros, revistas ou jornais
                     System.out.println("Insira uma opção: ");
                     System.out.println("1. Pesquisar Livros.");
                     System.out.println("2. Pesquisar Revistas.");
                     System.out.println("3. Pesquisar Jornais.");
                     System.out.println("0. Sair");
                     int escolha2 = scanner.nextInt();
-                     switch (escolha2){
-                         case 1:
-                             Pesquisa.pesquisarLivros();
-                             break;
-                         case 2:
-                             Pesquisa.pesquisarRevistas();
-                             break;
-                         case 3:
-                             Pesquisa.pesquisarJornais();
-                             break;
-                         case 0:
-                             break;
-                         default:
-                             System.out.println("Opção inválida. Tente novamente.");
-
-                     }
-
+                    switch (escolha2){
+                        case 1:
+                            Pesquisa.pesquisarLivros(); // Pesquisa livros
+                            break;
+                        case 2:
+                            Pesquisa.pesquisarRevistas(); // Pesquisa revistas
+                            break;
+                        case 3:
+                            Pesquisa.pesquisarJornais(); // Pesquisa jornais
+                            break;
+                        case 0:
+                            break;
+                        default:
+                            System.out.println("Opção inválida. Tente novamente.");
+                    }
                     break;
                 case 9:
-                    Pesquisa.pesquisarEmprestimosEReservasPorUtente();
+                    Pesquisa.pesquisarEmprestimosEReservasPorUtente(); // Pesquisa empréstimos e reservas por utente
                     break;
                 case 10:
+                    // Menu para consultar ou alterar empréstimos e reservas
                     Scanner ler = new Scanner(System.in);
                     int escolha = 0;
                     do {
                         System.out.println("Escolha a opção que deseja ir: ");
                         System.out.println("1. Consultar/Alterar Emprestimo ");
                         System.out.println("2. Consultar/Alterar Reserva ");
-
                         escolha = ler.nextInt();
-                        ler.nextLine();
+                        ler.nextLine(); // Limpa o buffer de entrada
                     } while (escolha != 1 && escolha != 2);
 
-                    if( escolha == 1){
-                        Emprestimo.consultarAlterarEmprestimo();
-                    }else
-                        Reserva.consultarAlterarReserva();
+                    if (escolha == 1) {
+                        Emprestimo.consultarAlterarEmprestimo(); // Consulta ou altera um empréstimo
+                    } else {
+                        Reserva.consultarAlterarReserva(); // Consulta ou altera uma reserva
+                    }
                     break;
                 case 11:
-                    Estatistica.apresentarListaDeUtentes();
+                    Estatistica.apresentarListaDeUtentes(); // Apresenta a lista de utentes
                     break;
                 case 12:
-                    Estatistica.totalEmprestimosPorIntervalo();
+                    Estatistica.totalEmprestimosPorIntervalo(); // Exibe o total de empréstimos por intervalo de datas
                     break;
                 case 13:
-                    Estatistica.EmprestimosRealizados();
+                    Estatistica.EmprestimosRealizados(); // Exibe estatísticas sobre empréstimos realizados
                     break;
                 case 14:
-                    Estatistica.itemMaisRequisitado();
+                    Estatistica.itemMaisRequisitado(); // Exibe o item mais requisitado
                     break;
                 case 15:
-                    Estatistica.utentesComAtraso();
+                    Estatistica.utentesComAtraso(); // Exibe os utentes com atraso na devolução
                     break;
                 case 16:
-                    Files.registarFicheiroLivros(CRUD.livros);
+                    Files.registarFicheiroLivros(CRUD.livros); // Regista livros em um arquivo
                     break;
                 case 17:
-                    Files.registarFicheiroRevistas(CRUD.revistas);
+                    Files.registarFicheiroRevistas(CRUD.revistas); // Regista revistas em um arquivo
                     break;
                 case 18:
-                    Files.registarFicheiroJornais(CRUD.jornais);
+                    Files.registarFicheiroJornais(CRUD.jornais); // Regista jornais em um arquivo
                     break;
                 case 19:
-                    Files.registarFicheiroUtentes(CRUD.utentes);
+                    Files.registarFicheiroUtentes(CRUD.utentes); // Regista utentes em um arquivo
                     break;
                 case 20:
-                    Files.registarFicheiroReserva(Reserva.listaReservas);
+                    Files.registarFicheiroReserva(Reserva.listaReservas); // Regista reservas em um arquivo
                     break;
                 case 21:
-                    Files.registarFicheiroEmprestimo(Emprestimo.listaEmprestimos);
+                    Files.registarFicheiroEmprestimo(Emprestimo.listaEmprestimos); // Regista empréstimos em um arquivo
                     break;
                 case 22:
                     Files.LerLivros();
@@ -160,11 +175,11 @@ public class Main {
                     Files.LerEmprestimos();
                     break;
                 case 0:
-                    running = false;
+                    running = false; // Encerra o loop e finaliza o programa
                     System.out.println("A sair do sistema...");
                     break;
                 default:
-                    System.out.println("Opção inválida. Tente novamente.");
+                    System.out.println("Opção inválida. Tente novamente."); // Caso a opção seja inválida
             }
         }
     }

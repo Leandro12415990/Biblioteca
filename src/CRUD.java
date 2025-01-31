@@ -2,15 +2,31 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Scanner;
-
+/**
+ * Classe CRUD para manipulação de livros, revistas, jornais e utentes.
+ * Permite criar, ler, atualizar e remover registros.
+ *
+ * @author Daniel
+ */
 public class CRUD {
-
+    /** Scanner para entrada de dados do usuário. */
     private static Scanner ler = new Scanner(System.in);
-    public static ArrayList<Livro> livros = new ArrayList<Livro>();
-    public static ArrayList<Revista> revistas = new ArrayList<Revista>();
-    public static ArrayList<Jornal> jornais = new ArrayList<Jornal>();
-    public static ArrayList<Utente> utentes = new ArrayList<Utente>();
 
+    /** Lista de livros cadastrados. */
+    public static ArrayList<Livro> livros = new ArrayList<>();
+
+    /** Lista de revistas cadastradas. */
+    public static ArrayList<Revista> revistas = new ArrayList<>();
+
+    /** Lista de jornais cadastrados. */
+    public static ArrayList<Jornal> jornais = new ArrayList<>();
+
+    /** Lista de utentes cadastrados. */
+    public static ArrayList<Utente> utentes = new ArrayList<>();
+
+    /**
+     * Método principal para entrada de dados.
+     */
     public static void main() {
         int opcao = 0;
         do {
@@ -95,6 +111,10 @@ public class CRUD {
         }
     }
 
+    /**
+     * Método para pesquisar registros existentes na coleção.
+     * O usuário pode escolher entre pesquisar um Livro, Revista, Jornal ou Utente.
+     */
     public static void ler() {
 
         int opcao = 0;
@@ -182,6 +202,9 @@ public class CRUD {
         }
 
     }
+    /**
+     * Método para atualizar um item (Livro, Revista, Jornal ou Utente) na lista correspondente.
+     */
     public static void update() {
         int posicao = 0;
         System.out.println("Escolha a opção que deseja editar: ");
@@ -484,6 +507,9 @@ public class CRUD {
             else System.out.println("O Utente com o ISSN " + NIFNup + ", não existe");
         }
     }
+    /**
+     * Método para remover um item (Livro, Revista, Jornal ou Utente) da lista correspondente.
+     */
     public static void remover () {
         int posicao = 0;
         System.out.println("Escolha a opção que deseja remover: ");
@@ -534,16 +560,24 @@ public class CRUD {
             }
         }
     }
-
-    public static Livro verificarLivroExistente(String isbn) {
+    /**
+     * Método para verificação da existencia do livro.
+     */
+    public static Livro verificarLivroExistente(String titulo) {
         for (Livro livro : livros) {
-            if (livro.getIsbn().equals(isbn)) {
+            if (livro.getTitulo().equals(titulo)) {
                 return livro;
             }
         }
         return null;
     }
 
+    /**
+     * Método para encontrar um utente pelo NIF.
+     *
+     * @param nif NIF do utente a ser pesquisado.
+     * @return O utente encontrado ou null caso não exista.
+     */
     public static Utente encontrarUtentePorNif(String nif) {
         for (Utente utente : utentes) {
             if (utente.getNif().equals(nif)) {
